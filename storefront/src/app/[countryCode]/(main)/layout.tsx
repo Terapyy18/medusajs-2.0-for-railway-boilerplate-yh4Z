@@ -8,12 +8,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }
 
-export default async function PageLayout(props: { children: React.ReactNode }) {
+export default async function PageLayout(props: {
+  children: React.ReactNode
+  params: Promise<{ countryCode: string }>
+}) {
+  const { countryCode } = await props.params
+
   return (
     <>
-      <Nav />
+      <Nav countryCode={countryCode} />
       {props.children}
-      <Footer />
+      <Footer countryCode={countryCode} />
     </>
   )
 }

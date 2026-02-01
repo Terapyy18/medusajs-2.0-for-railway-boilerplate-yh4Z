@@ -30,7 +30,7 @@ const medusaConfig = {
   projectConfig: {
     databaseUrl: DATABASE_URL,
     databaseLogging: false,
-    redisUrl: REDIS_URL,
+    // redisUrl: REDIS_URL,
     workerMode: WORKER_MODE,
     http: {
       adminCors: ADMIN_CORS,
@@ -132,10 +132,15 @@ const medusaConfig = {
           },
         ],
       },
-    }] : [])
+    }] : []),
+    {
+      resolve: "./src/modules/blog",
+      key: "blog",
+      options: {}
+    }
   ],
   plugins: [
-  ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
+    ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
       resolve: '@rokmohar/medusa-plugin-meilisearch',
       options: {
         config: {

@@ -1,4 +1,6 @@
-import { useFormState } from "react-dom"
+import { useActionState } from "react"
+import { useParams } from "next/navigation"
+import { getDictionary } from "@lib/dictionary"
 
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import Input from "@modules/common/components/input"
@@ -11,16 +13,19 @@ type Props = {
 }
 
 const Login = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useFormState(login, null)
+  const [message, formAction] = useActionState(login, null)
+  const params = useParams()
+  const countryCode = params?.countryCode as string
+  const dictionary = getDictionary(countryCode)
 
   return (
     <div
       className="max-w-sm w-full flex flex-col items-center"
       data-testid="login-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
+      <h1 className="text-large-semi uppercase mb-6">{dictionary.account.login.title}</h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
+        {dictionary.account.login.subtitle}
       </p>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">

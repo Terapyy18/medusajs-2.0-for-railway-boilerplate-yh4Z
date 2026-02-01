@@ -14,12 +14,16 @@ type ProductTabsProps = {
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
     {
-      label: "Product Information",
-      component: <ProductInfoTab product={product} />,
+      label: "Spécifications Techniques",
+      component: <TechnicalSpecsTab product={product} />,
     },
     {
-      label: "Shipping & Returns",
-      component: <ShippingInfoTab />,
+      label: "L'Histoire de ce Design",
+      component: <DesignHistoryTab />,
+    },
+    {
+      label: "Livraison & Soin",
+      component: <ShippingAndCareTab />,
     },
   ]
 
@@ -41,75 +45,99 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   )
 }
 
-const ProductInfoTab = ({ product }: ProductTabsProps) => {
+const TechnicalSpecsTab = ({ product }: ProductTabsProps) => {
+  const getMetadata = (key: string, fallback: string) => {
+    if (!product.metadata || !product.metadata[key]) return fallback
+    const value = product.metadata[key]
+    return typeof value === "string" || typeof value === "number" ? value : fallback
+  }
+
   return (
     <div className="text-small-regular py-8">
-      <div className="grid grid-cols-2 gap-x-8">
-        <div className="flex flex-col gap-y-4">
-          <div>
-            <span className="font-semibold">Material</span>
-            <p>{product.material ? product.material : "-"}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Country of origin</span>
-            <p>{product.origin_country ? product.origin_country : "-"}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Type</span>
-            <p>{product.type ? product.type.value : "-"}</p>
-          </div>
+      <dl className="grid grid-cols-2 gap-x-8 gap-y-4">
+        {/* Hauteur du Roi */}
+        <div className="flex flex-col gap-y-1">
+          <dt className="font-semibold text-ui-fg-subtle">Hauteur du Roi</dt>
+          <dd>{`${getMetadata("king_height", "95")} mm`}</dd>
         </div>
-        <div className="flex flex-col gap-y-4">
-          <div>
-            <span className="font-semibold">Weight</span>
-            <p>{product.weight ? `${product.weight} g` : "-"}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Dimensions</span>
-            <p>
-              {product.length && product.width && product.height
-                ? `${product.length}L x ${product.width}W x ${product.height}H`
-                : "-"}
-            </p>
-          </div>
+
+        {/* Diamètre de Base */}
+        <div className="flex flex-col gap-y-1">
+          <dt className="font-semibold text-ui-fg-subtle">Diamètre de Base</dt>
+          <dd>{`${getMetadata("base_diameter", "40")} mm`}</dd>
         </div>
+
+        {/* Poids du Set */}
+        <div className="flex flex-col gap-y-1">
+          <dt className="font-semibold text-ui-fg-subtle">Poids du Set</dt>
+          <dd>{product.weight ? `${product.weight} g` : "1.2 kg"}</dd>
+        </div>
+
+        {/* Matériaux */}
+        <div className="flex flex-col gap-y-1">
+          <dt className="font-semibold text-ui-fg-subtle">Matériaux</dt>
+          <dd>{product.material ? product.material : "Bois précieux"}</dd>
+        </div>
+
+        {/* Finitions */}
+        <div className="flex flex-col gap-y-1">
+          <dt className="font-semibold text-ui-fg-subtle">Finitions</dt>
+          <dd>{getMetadata("finishes", "Polissage manuel et feutre vert") as string}</dd>
+        </div>
+
+        {/* Origin */}
+        <div className="flex flex-col gap-y-1">
+          <dt className="font-semibold text-ui-fg-subtle">Origine</dt>
+          <dd>{product.origin_country ? product.origin_country : "Europe Artisanale"}</dd>
+        </div>
+      </dl>
+    </div>
+  )
+}
+
+const DesignHistoryTab = () => {
+  return (
+    <div className="text-small-regular py-8">
+      <div className="font-serif text-base leading-relaxed text-ui-fg-base max-w-prose">
+        <p className="mb-4">
+          Ce design reprend les codes du style 'Dubrovnik', célèbre pour sa robustesse et son ergonomie, plébiscité par les grands maîtres pour sa lisibilité tactique.
+        </p>
+        <p>
+          Chaque pièce est sculptée avec une attention méticuleuse aux détails, honorant la tradition des échecs de compétition tout en apportant une touche de raffinement moderne. L'équilibre des pièces a été étudié pour offrir une expérience de jeu fluide et satisfaisante.
+        </p>
       </div>
     </div>
   )
 }
 
-const ShippingInfoTab = () => {
+const ShippingAndCareTab = () => {
   return (
     <div className="text-small-regular py-8">
       <div className="grid grid-cols-1 gap-y-8">
         <div className="flex items-start gap-x-2">
           <FastDelivery />
           <div>
-            <span className="font-semibold">Fast delivery</span>
+            <span className="font-semibold">Livraison Premium</span>
             <p className="max-w-sm">
-              Your package will arrive in 3-5 business days at your pick up
-              location or in the comfort of your home.
+              Votre colis arrivera sous 3 à 5 jours ouvrables, emballé avec soin dans notre coffret signature pour une protection optimale.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Refresh />
           <div>
-            <span className="font-semibold">Simple exchanges</span>
+            <span className="font-semibold">Entretien & Soin</span>
             <p className="max-w-sm">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
+              Pour préserver l'éclat du bois, nous recommandons un léger cirage annuel. Évitez l'exposition directe et prolongée au soleil pour prévenir la décoloration des essences précieuses.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="font-semibold">Easy returns</span>
+            <span className="font-semibold">Retours Simplifiés</span>
             <p className="max-w-sm">
-              Just return your product and we&apos;ll refund your money. No
-              questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              Si le produit ne vous convient pas, vous disposez de 30 jours pour nous le retourner dans son état d'origine.
             </p>
           </div>
         </div>
