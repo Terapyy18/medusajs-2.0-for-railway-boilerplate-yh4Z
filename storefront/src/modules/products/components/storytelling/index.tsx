@@ -2,7 +2,7 @@ import { Text } from "@medusajs/ui"
 
 export default function Storytelling() {
     return (
-        <div className="w-full bg-paper py-24 border-t border-ui-border-base">
+        <div className="w-full bg-paper py-24 border-t ">
             <div className="content-container flex flex-col md:flex-row gap-12 items-center">
                 <div className="flex-1 flex flex-col gap-6">
                     <Text className="text-accent-gold uppercase tracking-widest font-bold text-sm">

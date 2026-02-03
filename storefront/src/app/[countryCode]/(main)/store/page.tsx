@@ -20,8 +20,14 @@ type Params = {
   }
 }
 
+import { getCollectionsList } from "@lib/data/collections"
+import { listCategories } from "@lib/data/categories"
+
 export default async function StorePage({ searchParams, params }: Params) {
   const { sortBy, page, theme, type } = searchParams
+
+  const { collections } = await getCollectionsList(0, 100)
+  const categories = await listCategories()
 
   return (
     <StoreTemplate
@@ -30,6 +36,8 @@ export default async function StorePage({ searchParams, params }: Params) {
       countryCode={params.countryCode}
       theme={theme}
       type={type}
+      collections={collections}
+      categories={categories}
     />
   )
 }

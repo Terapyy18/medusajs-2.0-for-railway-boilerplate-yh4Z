@@ -10,6 +10,7 @@ import SideMenu from "@modules/layout/components/side-menu"
 import LanguageSelector from "@modules/layout/components/language-select"
 import Megamenu from "@modules/layout/components/megamenu"
 import { getDictionary } from "@lib/dictionary"
+import { ThemeToggle } from "@modules/layout/components/theme-toggle"
 
 import { getBlogPosts } from "@lib/data/blog"
 
@@ -21,7 +22,7 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
 
   return (
     <div className="absolute top-0 inset-x-0 z-50 group">
-      <header className="relative h-18 mx-auto border-b duration-200 bg-transparent border-transparent text-white hover:bg-primary/90 hover:border-ui-border-base transition-all">
+      <header className="relative h-18 mx-auto border-b duration-200 bg-transparent border-transparent text-gray-900 dark:text-white hover:bg-primary/90  transition-all">
         <nav className="content-container txt-xsmall-plus flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center gap-x-4">
             {/* Mobile Menu Trigger - kept for small screens */}
@@ -53,7 +54,7 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
               {dictionary.nav.catalogue}
             </LocalizedClientLink>
 
-            <LocalizedClientLink href="/about" className="hover:text-accent-gold uppercase transition-colors">
+            <LocalizedClientLink href="/craftsmanship" className="hover:text-accent-gold uppercase transition-colors">
               {dictionary.nav.workshop}
             </LocalizedClientLink>
 
@@ -95,6 +96,8 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
             </div>
 
             <LanguageSelector />
+
+            <ThemeToggle />
 
             <Suspense
               fallback={

@@ -77,7 +77,7 @@ export default function LanguageSelector() {
                             }}
                             countryCode={current.countryCode}
                         />
-                        <span className="uppercase">{current.value}</span>
+                        <span className="uppercase text-gray-900 dark:text-white">{current.value}</span>
                     </Listbox.Button>
                     <Transition
                         as={Fragment}
@@ -88,7 +88,7 @@ export default function LanguageSelector() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Listbox.Options className="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Listbox.Options className="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-white dark:bg-neutral-800 shadow-lg ring-1 ring-black dark:ring-neutral-600 ring-opacity-5 focus:outline-none">
                             <div className="py-1">
                                 {options.map((option) => (
                                     <Listbox.Option
@@ -96,7 +96,7 @@ export default function LanguageSelector() {
                                         value={option}
                                         className={({ active }) =>
                                             clx(
-                                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                                active ? "bg-gray-100 dark:bg-neutral-700 text-gray-900 dark:text-white" : "text-gray-700 dark:text-gray-300",
                                                 "block px-4 py-2 text-sm cursor-pointer"
                                             )
                                         }

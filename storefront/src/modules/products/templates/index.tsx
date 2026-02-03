@@ -59,14 +59,14 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
             </Suspense>
 
             {/* Reassurance Bar (Compact) */}
-            <div className="border-t border-ui-border-base pt-6">
+            <div className="border-t  pt-6">
               {/* Reusing main reassurance logic or a simpler version here if needed. 
                      For now, let's keep it clean or import specific small icons if requested.
                      The prompt asked for "ReassuranceBar (version compacte)". 
                      I'll verify if I should import the main one or just render icons.
                      Given I don't have a specific compact reassurance component, I'll add a simple text row.
                  */}
-              <div className="flex items-center justify-between text-xs text-ui-fg-subtle uppercase tracking-wider">
+              <div className="flex items-center justify-between text-xs text-gray-400 uppercase tracking-wider">
                 <span>Livraison Sécurisée</span>
                 <span>•</span>
                 <span>Retour sous 30j</span>

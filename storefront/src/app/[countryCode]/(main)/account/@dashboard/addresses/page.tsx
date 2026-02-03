@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "View your addresses",
 }
 
+import { getDictionary } from "@lib/dictionary"
+
 export default async function Addresses({
   params,
 }: {
@@ -20,6 +22,7 @@ export default async function Addresses({
   const { countryCode } = params
   const customer = await getCustomer()
   const region = await getRegion(countryCode)
+  const dictionary = getDictionary(countryCode)
 
   if (!customer || !region) {
     notFound()
@@ -28,13 +31,12 @@ export default async function Addresses({
   return (
     <div className="w-full" data-testid="addresses-page-wrapper">
       <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Shipping Addresses</h1>
+        <h1 className="text-2xl-semi">{dictionary.account.addresses.title}</h1>
         <p className="text-base-regular">
-          View and update your shipping addresses, you can add as many as you
-          like. Saving your addresses will make them available during checkout.
+          {dictionary.account.addresses.description}
         </p>
       </div>
-      <AddressBook customer={customer} region={region} />
+      <AddressBook customer={customer} region={region} dictionary={dictionary} />
     </div>
   )
 }

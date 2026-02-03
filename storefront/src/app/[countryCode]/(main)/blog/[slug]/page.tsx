@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: Props) {
     })
 
     return (
-        <article className="w-full bg-paper min-h-screen">
+        <article className="w-full bg-white dark:bg-neutral-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-200">
             {/* Header / Hero */}
             <div className="w-full relative h-[60vh] md:h-[70vh] mb-12">
                 {post.main_image ? (
@@ -85,25 +85,25 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Content */}
             <div className="content-container max-w-2xl mx-auto mb-20 px-4">
                 {post.excerpt && (
-                    <div className="text-xl md:text-2xl font-serif text-ui-fg-base mb-12 italic border-l-4 border-accent-gold pl-6 leading-relaxed">
+                    <div className="text-xl md:text-2xl font-serif text-gray-700 dark:text-gray-200 mb-12 italic border-l-4 border-accent-gold pl-6 leading-relaxed">
                         {post.excerpt}
                     </div>
                 )}
 
-                <div className="prose prose-lg prose-slate font-sans text-ui-fg-subtle max-w-none text-opacity-90 prose-headings:font-serif prose-headings:text-primary prose-a:text-accent-gold hover:prose-a:text-accent-gold/80 prose-img:rounded-md">
+                <div className="prose prose-lg dark:prose-invert font-sans text-gray-600 dark:text-gray-300 max-w-none text-opacity-90 prose-headings:font-serif prose-headings:text-gray-900 dark:prose-headings:text-white prose-a:text-accent-gold hover:prose-a:text-accent-gold/80 prose-img:rounded-md">
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
             </div>
 
             {/* Section Divider */}
-            <div className="w-full h-px bg-neutral-200 mb-20" />
+            <div className="w-full h-px bg-gray-200 dark:bg-neutral-800 mb-20" />
 
             {/* Product Suggestions */}
             {products && products.length > 0 && region && (
                 <div className="content-container max-w-6xl mx-auto mb-24 px-4">
                     <div className="flex flex-col items-center text-center mb-12">
                         <span className="text-sm font-bold uppercase tracking-widest text-accent-gold mb-3">Shop</span>
-                        <Heading level="h2" className="text-3xl md:text-4xl font-serif text-primary">
+                        <Heading level="h2" className="text-3xl md:text-4xl font-serif text-gray-900 dark:text-white">
                             Featured Creations
                         </Heading>
                     </div>

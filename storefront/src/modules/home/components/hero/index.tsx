@@ -20,7 +20,7 @@ const Hero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        <source src="https://www.pexels.com/download/video/6687506/" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

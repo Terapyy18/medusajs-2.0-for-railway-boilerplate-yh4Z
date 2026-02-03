@@ -7,6 +7,7 @@ import MedusaCTA from "@modules/layout/components/medusa-cta"
 import Reassurance from "@modules/layout/components/reassurance"
 import { ArrowRight } from "lucide-react"
 import { getDictionary } from "@lib/dictionary"
+import Image from "next/image"
 
 export default async function Footer({ countryCode }: { countryCode: string }) {
   const { collections } = await getCollectionsList(0, 6)
@@ -14,7 +15,7 @@ export default async function Footer({ countryCode }: { countryCode: string }) {
   const dictionary = getDictionary(countryCode)
 
   return (
-    <footer className="w-full bg-primary text-white border-t border-ui-border-base">
+    <footer className="w-full bg-neutral-100 dark:bg-neutral-900 text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-800 transition-colors duration-200">
       <Reassurance countryCode={countryCode} />
 
       <div className="content-container flex flex-col w-full">
@@ -26,7 +27,7 @@ export default async function Footer({ countryCode }: { countryCode: string }) {
               href="/"
               className="txt-compact-xlarge-plus hover:text-accent-gold uppercase font-serif tracking-widest text-2xl"
             >
-              TeraPrint
+              <Image src="/logo.png" alt="Logo" width={100} height={100} />
             </LocalizedClientLink>
 
             <div className="flex flex-col gap-2">

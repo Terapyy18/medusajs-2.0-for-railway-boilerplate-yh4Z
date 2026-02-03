@@ -2,16 +2,24 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
+import { HttpTypes } from "@medusajs/types"
 
 import SortProducts, { SortOptions } from "./sort-products"
 
 type RefinementListProps = {
   sortBy: SortOptions
   search?: boolean
-  'data-testid'?: string
+  "data-testid"?: string
+  collections?: HttpTypes.StoreCollection[]
+  categories?: HttpTypes.StoreProductCategory[]
 }
 
-const RefinementList = ({ sortBy, 'data-testid': dataTestId }: RefinementListProps) => {
+const RefinementList = ({
+  sortBy,
+  "data-testid": dataTestId,
+  collections = [],
+  categories = []
+}: RefinementListProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -35,23 +43,23 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId }: RefinementListPro
     <div className="flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6 small:min-w-[250px] small:ml-[1.675rem]">
       <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
 
-      {/* Themes Filter */}
+      {/* Collections Filter (Themes) */}
       <div className="flex flex-col gap-3">
         <h3 className="text-base-semi">Thèmes</h3>
         <div className="flex flex-col gap-2">
-          {["egypt", "zombies", "rome"].map((theme) => (
-            <label key={theme} className="flex items-center gap-2 cursor-pointer">
+          {collections.map((collection) => (
+            <label key={collection.id} className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="theme"
-                value={theme}
-                checked={searchParams.get("theme") === theme}
+                value={collection.handle}
+                checked={searchParams.get("theme") === collection.handle}
                 onChange={(e) => {
-                  if (e.target.checked) setQueryParams("theme", theme)
+                  if (e.target.checked) setQueryParams("theme", collection.handle)
                 }}
                 className="accent-primary"
               />
-              <span className="capitalize text-ui-fg-subtle text-sm">{theme}</span>
+              <span className="capitalize text-ui-fg-subtle text-sm">{collection.title}</span>
             </label>
           ))}
           <label className="flex items-center gap-2 cursor-pointer">
@@ -61,7 +69,6 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId }: RefinementListPro
               value=""
               checked={!searchParams.get("theme")}
               onChange={() => {
-                // Remove param
                 const params = new URLSearchParams(searchParams)
                 params.delete("theme")
                 router.push(`${pathname}?${params.toString()}`)
@@ -73,23 +80,23 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId }: RefinementListPro
         </div>
       </div>
 
-      {/* Type Filter */}
+      {/* Categories Filter (Type) */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-base-semi">Type</h3>
+        <h3 className="text-base-semi">Catégorie</h3>
         <div className="flex flex-col gap-2">
-          {["set", "pieces", "board"].map((type) => (
-            <label key={type} className="flex items-center gap-2 cursor-pointer">
+          {categories.map((category) => (
+            <label key={category.id} className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="type"
-                value={type}
-                checked={searchParams.get("type") === type}
+                value={category.handle}
+                checked={searchParams.get("type") === category.handle}
                 onChange={(e) => {
-                  if (e.target.checked) setQueryParams("type", type)
+                  if (e.target.checked) setQueryParams("type", category.handle)
                 }}
                 className="accent-primary"
               />
-              <span className="capitalize text-ui-fg-subtle text-sm">{type === 'set' ? 'Jeu Complet' : (type === 'pieces' ? 'Pièces Seules' : 'Plateau')}</span>
+              <span className="capitalize text-ui-fg-subtle text-sm">{category.name}</span>
             </label>
           ))}
           <label className="flex items-center gap-2 cursor-pointer">

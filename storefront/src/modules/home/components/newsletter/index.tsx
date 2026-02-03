@@ -28,9 +28,9 @@ const Newsletter = () => {
     }
 
     return (
-        <section className="bg-luxury-black py-20 w-full">
+        <section className="bg-neutral-100 dark:bg-neutral-900 py-20 w-full transition-colors duration-200">
             <div className="content-container mx-auto flex flex-col items-center text-center px-4">
-                <h2 className="text-3xl md:text-4xl font-serif text-white mb-4 tracking-wide">
+                <h2 className="text-3xl md:text-4xl font-serif text-gray-900 dark:text-white mb-4 tracking-wide">
                     {dictionary.newsletter.title}
                 </h2>
                 <p className="text-gray-400 mb-10 max-w-lg text-sm md:text-base font-light tracking-wide leading-relaxed">
@@ -46,14 +46,14 @@ const Newsletter = () => {
                         placeholder={dictionary.newsletter.placeholder}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-transparent text-white py-4 pr-12 focus:outline-none focus:ring-0 placeholder-gray-500 font-light text-lg"
+                        className="w-full bg-transparent text-gray-900 dark:text-white py-4 pr-12 focus:outline-none focus:ring-0 placeholder-gray-500 font-light text-lg"
                         required
                         aria-label="Email address"
                     />
                     <button
                         type="submit"
                         disabled={status === "loading" || status === "success"}
-                        className="absolute right-0 text-gray-400 hover:text-white transition-colors duration-300 p-2 disabled:opacity-50"
+                        className="absolute right-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 p-2 disabled:opacity-50"
                         aria-label={dictionary.newsletter.cta}
                     >
                         {status === "loading" ? (

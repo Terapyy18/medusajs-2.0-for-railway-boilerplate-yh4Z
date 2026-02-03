@@ -27,7 +27,7 @@ export default function Reassurance({ countryCode }: { countryCode: string }) {
     ]
 
     return (
-        <div className="bg-primary text-white border-t border-ui-border-base">
+        <div className="bg-neutral-900 text-white border-t border-gray-800">
             <div className="content-container py-12">
                 <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 gap-x-8">
                     {items.map((item) => (

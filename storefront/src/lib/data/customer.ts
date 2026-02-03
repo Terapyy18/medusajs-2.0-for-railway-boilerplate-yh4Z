@@ -10,7 +10,7 @@ import { getAuthHeaders, removeAuthToken, setAuthToken } from "./cookies"
 
 export const getCustomer = cache(async function () {
   return await sdk.store.customer
-    .retrieve({}, { next: { tags: ["customer"] }, ...getAuthHeaders() })
+    .retrieve({}, { next: { tags: ["customer"] }, ...(await getAuthHeaders()) })
     .then(({ customer }) => customer)
     .catch(() => null)
 })
@@ -19,7 +19,7 @@ export const updateCustomer = cache(async function (
   body: HttpTypes.StoreUpdateCustomer
 ) {
   const updateRes = await sdk.store.customer
-    .update(body, {}, getAuthHeaders())
+    .update(body, {}, await getAuthHeaders())
     .then(({ customer }) => customer)
     .catch(medusaError)
 
@@ -43,7 +43,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
     })
 
     const customHeaders = { authorization: `Bearer ${token}` }
-    
+
     const { customer: createdCustomer } = await sdk.store.customer.create(
       customerForm,
       {},
@@ -55,7 +55,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
       password,
     })
 
-    setAuthToken(typeof loginToken === 'string' ? loginToken : loginToken.location)
+    await setAuthToken(typeof loginToken === 'string' ? loginToken : loginToken.location)
 
     revalidateTag("customer")
     return createdCustomer
@@ -69,12 +69,9 @@ export async function login(_currentState: unknown, formData: FormData) {
   const password = formData.get("password") as string
 
   try {
-    await sdk.auth
-      .login("customer", "emailpass", { email, password })
-      .then((token) => {
-        setAuthToken(typeof token === 'string' ? token : token.location)
-        revalidateTag("customer")
-      })
+    const token = await sdk.auth.login("customer", "emailpass", { email, password })
+    await setAuthToken(typeof token === 'string' ? token : token.location)
+    revalidateTag("customer")
   } catch (error: any) {
     return error.toString()
   }
@@ -82,7 +79,7 @@ export async function login(_currentState: unknown, formData: FormData) {
 
 export async function signout(countryCode: string) {
   await sdk.auth.logout()
-  removeAuthToken()
+  await removeAuthToken()
   revalidateTag("auth")
   revalidateTag("customer")
   redirect(`/${countryCode}/account`)
@@ -106,7 +103,7 @@ export const addCustomerAddress = async (
   }
 
   return sdk.store.customer
-    .createAddress(address, {}, getAuthHeaders())
+    .createAddress(address, {}, await getAuthHeaders())
     .then(({ customer }) => {
       revalidateTag("customer")
       return { success: true, error: null }
@@ -120,7 +117,7 @@ export const deleteCustomerAddress = async (
   addressId: string
 ): Promise<void> => {
   await sdk.store.customer
-    .deleteAddress(addressId, getAuthHeaders())
+    .deleteAddress(addressId, await getAuthHeaders())
     .then(() => {
       revalidateTag("customer")
       return { success: true, error: null }
@@ -134,7 +131,7 @@ export const updateCustomerAddress = async (
   currentState: Record<string, unknown>,
   formData: FormData
 ): Promise<any> => {
-  const addressId = currentState.addressId as string
+  const addressId = (formData.get("addressId") as string) || (currentState.addressId as string)
 
   const address = {
     first_name: formData.get("first_name") as string,
@@ -150,12 +147,58 @@ export const updateCustomerAddress = async (
   }
 
   return sdk.store.customer
-    .updateAddress(addressId, address, {}, getAuthHeaders())
+    .updateAddress(addressId, address, {}, await getAuthHeaders())
     .then(() => {
       revalidateTag("customer")
-      return { success: true, error: null }
+      return { success: true, error: null, addressId }
     })
     .catch((err) => {
-      return { success: false, error: err.toString() }
+      return { success: false, error: err.toString(), addressId }
     })
+}
+
+export async function updateBillingAddress(
+  _currentState: unknown,
+  formData: FormData
+) {
+  const addressId = formData.get("addressId") as string
+
+  const address = {
+    first_name: formData.get("first_name") as string,
+    last_name: formData.get("last_name") as string,
+    company: formData.get("company") as string,
+    address_1: formData.get("address_1") as string,
+    address_2: formData.get("address_2") as string,
+    city: formData.get("city") as string,
+    postal_code: formData.get("postal_code") as string,
+    province: formData.get("province") as string,
+    country_code: formData.get("country_code") as string,
+    phone: formData.get("phone") as string,
+    is_default_billing: true,
+  }
+
+  try {
+    let resultId = addressId
+
+    if (addressId && addressId !== "undefined") {
+      await sdk.store.customer.updateAddress(addressId, address, {}, await getAuthHeaders())
+    } else {
+      const { customer } = await sdk.store.customer.createAddress(address, {}, await getAuthHeaders())
+      // Assuming the created address is returned or added to the customer object.
+      // We don't need to manually link it if we set is_default_billing: true.
+
+      const newAddress = customer.addresses?.find(a =>
+        a.address_1 === address.address_1 &&
+        a.postal_code === address.postal_code
+      )
+      if (newAddress) {
+        resultId = newAddress.id
+      }
+    }
+
+    revalidateTag("customer")
+    return { success: true, error: null, addressId: resultId }
+  } catch (error: any) {
+    return { success: false, error: error.toString(), addressId }
+  }
 }

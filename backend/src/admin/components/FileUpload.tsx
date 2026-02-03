@@ -51,7 +51,7 @@ const FileUpload = ({ label = "Image", onUpload, value }: FileUploadProps) => {
             <Label>{label}</Label>
             <div className="flex items-center gap-4">
                 {value && (
-                    <div className="w-16 h-16 rounded overflow-center border border-ui-border-base relative">
+                    <div className="w-16 h-16 rounded overflow-center border  relative">
                         <img src={value} alt="Preview" className="w-full h-full object-cover" />
                     </div>
                 )}

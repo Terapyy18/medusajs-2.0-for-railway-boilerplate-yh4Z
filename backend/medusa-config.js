@@ -137,6 +137,11 @@ const medusaConfig = {
       resolve: "./src/modules/blog",
       key: "blog",
       options: {}
+    },
+    {
+      resolve: "./src/modules/banner",
+      key: "banner",
+      options: {}
     }
   ],
   plugins: [

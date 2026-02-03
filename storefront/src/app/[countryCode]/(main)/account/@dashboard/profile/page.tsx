@@ -15,9 +15,17 @@ export const metadata: Metadata = {
   description: "View and edit your Medusa Store profile.",
 }
 
-export default async function Profile() {
+import { getDictionary } from "@lib/dictionary"
+
+export default async function Profile({
+  params,
+}: {
+  params: { countryCode: string }
+}) {
+  const { countryCode } = params
   const customer = await getCustomer()
   const regions = await listRegions()
+  const dictionary = getDictionary(countryCode)
 
   if (!customer || !regions) {
     notFound()
@@ -26,23 +34,21 @@ export default async function Profile() {
   return (
     <div className="w-full" data-testid="profile-page-wrapper">
       <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Profile</h1>
+        <h1 className="text-2xl-semi">{dictionary.account.profile.title}</h1>
         <p className="text-base-regular">
-          View and update your profile information, including your name, email,
-          and phone number. You can also update your billing address, or change
-          your password.
+          {dictionary.account.profile.description}
         </p>
       </div>
       <div className="flex flex-col gap-y-8 w-full">
-        <ProfileName customer={customer} />
+        <ProfileName customer={customer} dictionary={dictionary} />
         <Divider />
-        <ProfileEmail customer={customer} />
+        <ProfileEmail customer={customer} dictionary={dictionary} />
         <Divider />
-        <ProfilePhone customer={customer} />
+        <ProfilePhone customer={customer} dictionary={dictionary} />
         <Divider />
-        <ProfilePassword customer={customer} />
+        <ProfilePassword customer={customer} dictionary={dictionary} />
         <Divider />
-        <ProfileBillingAddress customer={customer} regions={regions} />
+        <ProfileBillingAddress customer={customer} regions={regions} dictionary={dictionary} />
       </div>
     </div>
   )
