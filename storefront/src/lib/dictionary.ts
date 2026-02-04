@@ -202,6 +202,10 @@ export const dictionary = {
             search: "Search",
             account: "Account",
             cart: "Cart"
+        },
+        checkout: {
+            back_to_cart: "Back to shopping cart",
+            back: "Back"
         }
     },
     fr: {
@@ -402,6 +406,10 @@ export const dictionary = {
             search: "Rechercher",
             account: "Compte",
             cart: "Panier"
+        },
+        checkout: {
+            back_to_cart: "Retour au panier",
+            back: "Retour"
         }
     },
 } as const
@@ -545,6 +553,10 @@ export interface Dictionary {
         search: string
         account: string
         cart: string
+    }
+    checkout: {
+        back_to_cart: string
+        back: string
     }
 }
 

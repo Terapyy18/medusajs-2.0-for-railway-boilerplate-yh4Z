@@ -53,7 +53,7 @@ const Wrapper: React.FC<WrapperProps> = ({ cart, children }) => {
         options={{
           "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test",
           currency: cart?.currency_code.toUpperCase(),
-          intent: "authorize",
+          intent: "capture",
           components: "buttons",
         }}
       >

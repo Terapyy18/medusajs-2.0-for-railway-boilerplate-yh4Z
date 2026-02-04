@@ -46,6 +46,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             required={required}
             className="pt-4 pb-1 block w-full h-11 px-4 mt-0 bg-ui-bg-field dark:bg-neutral-900 border rounded-md appearance-none focus:outline-none focus:ring-0 focus:shadow-borders-interactive-with-active  dark:border-gray-700 hover:bg-ui-bg-field-hover dark:hover:bg-neutral-800 text-ui-fg-base dark:text-white transition-colors duration-200"
             {...props}
+            value={props.value ?? ""}
             ref={inputRef}
           />
           <label
