@@ -17,8 +17,8 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function CartButton() {
+export default async function CartButton({ cartDictionary }: { cartDictionary: any }) {
   const cart = await fetchCart()
 
-  return <CartDropdown cart={cart} />
+  return <CartDropdown cart={cart} cartDictionary={cartDictionary} />
 }

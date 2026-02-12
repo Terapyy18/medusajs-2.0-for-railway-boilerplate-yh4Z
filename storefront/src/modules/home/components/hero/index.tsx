@@ -13,16 +13,21 @@ const Hero = () => {
   return (
     <div className="h-screen w-full relative overflow-hidden">
       {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="https://www.pexels.com/download/video/6687506/" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Background Images - Theme Aware */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Dark Theme Image (bg1.jpg) - Shown only in dark mode */}
+        <img
+          src="/bg1.jpg"
+          alt="Hero Background Dark"
+          className="hidden dark:block w-full h-full object-cover"
+        />
+        {/* Light Theme Image (BG2.jpg) - Shown only in light mode */}
+        <img
+          src="/BG2.jpg"
+          alt="Hero Background Light"
+          className="block dark:hidden w-full h-full object-cover"
+        />
+      </div>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />

@@ -12,7 +12,7 @@ export default function Craftsmanship({ countryCode }: { countryCode: string }) 
                 <div className="flex flex-col md:flex-row items-center gap-12 mb-24">
                     <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden">
                         <Image
-                            src="/View_1.png"
+                            src="/Egypt_view.jpg"
                             alt="Craftsmanship process"
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-700"
@@ -27,15 +27,12 @@ export default function Craftsmanship({ countryCode }: { countryCode: string }) 
                 </div>
             </div>
 
-            {/* Reassurance Section */}
-            <Reassurance countryCode={countryCode} />
-
             <div className="content-container">
                 {/* Block 2: The Weight */}
                 <div className="flex flex-col md:flex-row-reverse items-center gap-12 mt-24">
                     <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden">
                         <Image
-                            src="/View_1.png"
+                            src="/Rome_view.jpg"
                             alt="Weighted base detail"
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-700"
@@ -49,6 +46,7 @@ export default function Craftsmanship({ countryCode }: { countryCode: string }) 
                     </div>
                 </div>
             </div>
+            <Reassurance countryCode={countryCode} />
         </section>
     )
 }

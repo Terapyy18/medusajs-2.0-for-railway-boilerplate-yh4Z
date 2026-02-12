@@ -49,7 +49,7 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
 
           {/* Centered Navigation for Desktop */}
           <div className="hidden small:flex items-center h-full justify-center gap-x-8">
-            <Megamenu collections={collections} />
+            <Megamenu collections={collections} dictionary={dictionary.megamenu} />
             <LocalizedClientLink href="/store" className="hover:text-accent-gold uppercase transition-colors">
               {dictionary.nav.catalogue}
             </LocalizedClientLink>
@@ -106,11 +106,11 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  {dictionary.cart.title} (0)
                 </LocalizedClientLink>
               }
             >
-              <CartButton />
+              <CartButton cartDictionary={dictionary.cart} />
             </Suspense>
           </div>
         </nav>

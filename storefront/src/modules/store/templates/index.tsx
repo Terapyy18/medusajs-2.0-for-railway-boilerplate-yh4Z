@@ -5,6 +5,7 @@ import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-g
 import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import DiscoveryBanner from "@modules/store/components/discovery-banner"
+import NarrativeBanner from "@modules/store/components/narrative-banner"
 
 import PaginatedProducts from "./paginated-products"
 
@@ -48,10 +49,13 @@ const StoreTemplate = ({
               countryCode={countryCode}
               theme={theme}
               type={type}
+              collections={collections}
+              categories={categories}
             />
           </Suspense>
         </div>
       </div>
+      <NarrativeBanner />
     </div>
   )
 }

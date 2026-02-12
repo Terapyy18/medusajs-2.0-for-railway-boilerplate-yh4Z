@@ -3,7 +3,7 @@ import { getRegion } from "@lib/data/regions"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import NarrativeBanner from "@modules/store/components/narrative-banner"
+
 
 const PRODUCT_LIMIT = 12
 
@@ -17,6 +17,8 @@ type PaginatedProductsParams = {
   q?: string
 }
 
+import { HttpTypes } from "@medusajs/types"
+
 export default async function PaginatedProducts({
   sortBy,
   page,
@@ -25,7 +27,9 @@ export default async function PaginatedProducts({
   productsIds,
   countryCode,
   theme,
-  type
+  type,
+  collections,
+  categories
 }: {
   sortBy?: SortOptions
   page: number
@@ -35,6 +39,8 @@ export default async function PaginatedProducts({
   countryCode: string
   theme?: string
   type?: string
+  collections?: HttpTypes.StoreCollection[]
+  categories?: HttpTypes.StoreProductCategory[]
 }) {
   const queryParams: PaginatedProductsParams = {
     limit: 12,
@@ -44,8 +50,22 @@ export default async function PaginatedProducts({
     queryParams["collection_id"] = [collectionId]
   }
 
+  if (theme && collections) {
+    const collection = collections.find((c) => c.handle === theme)
+    if (collection) {
+      queryParams["collection_id"] = [collection.id]
+    }
+  }
+
   if (categoryId) {
     queryParams["category_id"] = [categoryId]
+  }
+
+  if (type && categories) {
+    const category = categories.find((c) => c.handle === type)
+    if (category) {
+      queryParams["category_id"] = [category.id]
+    }
   }
 
   if (productsIds) {
@@ -93,10 +113,7 @@ export default async function PaginatedProducts({
                 </li>
               ))}
             </ul>
-            {/* Insert Banner after first chunk (index 0) */}
-            {index === 0 && products.length >= 6 && (
-              <NarrativeBanner />
-            )}
+
           </div>
         ))}
       </div>

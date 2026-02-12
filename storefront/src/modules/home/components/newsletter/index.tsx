@@ -28,7 +28,7 @@ const Newsletter = () => {
     }
 
     return (
-        <section className="bg-neutral-100 dark:bg-neutral-900 py-20 w-full transition-colors duration-200">
+        <section className=" dark:bg-neutral-900 py-20 w-full transition-colors duration-200">
             <div className="content-container mx-auto flex flex-col items-center text-center px-4">
                 <h2 className="text-3xl md:text-4xl font-serif text-gray-900 dark:text-white mb-4 tracking-wide">
                     {dictionary.newsletter.title}

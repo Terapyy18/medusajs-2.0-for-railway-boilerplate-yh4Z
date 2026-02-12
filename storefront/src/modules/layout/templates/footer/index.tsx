@@ -15,7 +15,7 @@ export default async function Footer({ countryCode }: { countryCode: string }) {
   const dictionary = getDictionary(countryCode)
 
   return (
-    <footer className="w-full bg-neutral-100 dark:bg-neutral-900 text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-800 transition-colors duration-200">
+    <footer className="w-full dark:bg-neutral-900 text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-800 transition-colors duration-200">
       <Reassurance countryCode={countryCode} />
 
       <div className="content-container flex flex-col w-full">

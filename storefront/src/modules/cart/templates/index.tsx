@@ -8,9 +8,11 @@ import { HttpTypes } from "@medusajs/types"
 const CartTemplate = ({
   cart,
   customer,
+  cartDictionary
 }: {
   cart: HttpTypes.StoreCart | null
   customer: HttpTypes.StoreCustomer | null
+  cartDictionary: any // using any to avoid type drilling, or could duplicate type
 }) => {
   return (
     <div className="py-12">
@@ -40,7 +42,7 @@ const CartTemplate = ({
           </div>
         ) : (
           <div>
-            <EmptyCartMessage />
+            <EmptyCartMessage cartDictionary={cartDictionary} />
           </div>
         )}
       </div>

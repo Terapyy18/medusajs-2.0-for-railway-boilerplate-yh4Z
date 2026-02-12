@@ -78,13 +78,24 @@ export const dictionary = {
         },
         craftsmanship: {
             block1: {
-                title: "Géométrie Complexe & Précision",
-                text: "Là où le ciseau atteint ses limites, la résine excelle. Le Cavalier est imprimé à une résolution de 19 microns pour capturer des détails organiques (crinière, expression) impossibles en tournage traditionnel. Chaque pièce est ensuite post-traitée et peinte à la main, fusionnant la perfection numérique avec la touche unique de l'artisan."
+                title: "Complex Geometry & Precision",
+                text: "Where the chisel reaches its limits, resin excels. The Knight is printed at a resolution of 19 microns to capture organic details (mane, expression) impossible in traditional turning. Each piece is then post-processed and hand-painted, merging digital perfection with the artisan's unique touch."
             },
             block2: {
-                title: "Densité Structurelle & Inertie",
-                text: "Aucun artificeChaque pièce est fabriquée pleine pour une masse monolithique naturelle. Cette densité pure offre une stabilité inébranlable et une sensation de lourdeur premium en main. La base est scellée d'un feutre technique, assurant un glissement silencieux et une protection absolue de votre échiquier."
+                title: "Structural Density & Inertia",
+                text: "No artifice. Each piece is manufactured solid for a natural monolithic mass. This pure density offers unshakable stability and a premium heavy feel in hand. The base is sealed with technical felt, ensuring silent gliding and absolute protection of your chessboard."
             }
+        },
+        craftsmanship_page: {
+            title: "The Excellence of Craft",
+            subtitle: "Dive into the heart of our workshop where each piece is shaped with passion, combining age-old tradition and modern precision."
+        },
+        cart: {
+            title: "Cart",
+            empty_msg: "You don't have anything in your cart. Let's change that, use the link below to start browsing our products.",
+            bag_empty: "Your shopping bag is empty.",
+            go_to_products: "Go to all products page",
+            explore_products: "Explore products"
         },
         featured_collections: {
             explore: "Explore"
@@ -123,10 +134,7 @@ export const dictionary = {
                 already_member: "Already a member?",
                 sign_in: "Sign in"
             },
-            addresses: {
-                title: "Shipping Addresses",
-                description: "View and update your shipping addresses, you can add as many as you like. Saving your addresses will make them available during checkout."
-            },
+
             overview: {
                 hello: "Hello",
                 signed_in_as: "Signed in as:",
@@ -206,6 +214,12 @@ export const dictionary = {
         checkout: {
             back_to_cart: "Back to shopping cart",
             back: "Back"
+        },
+        megamenu: {
+            title: "Collections",
+            explore_collection: "Explore the {title} collection",
+            view_all: "View All Collections",
+            discover_range: "Discover our full range of 3D printed art."
         }
     },
     fr: {
@@ -295,6 +309,17 @@ export const dictionary = {
                 text: "Chaque pièce est fabriquée pleine pour une masse monolithique naturelle. Cette densité pure offre une stabilité inébranlable et une sensation de lourdeur premium en main. La base est scellée d'un feutre technique, assurant un glissement silencieux et une protection absolue de votre échiquier."
             }
         },
+        craftsmanship_page: {
+            title: "L'Excellence du Geste",
+            subtitle: "Plongez au cœur de notre atelier où chaque pièce est façonné avec passion, alliant tradition séculaire et précision moderne."
+        },
+        cart: {
+            title: "Panier",
+            empty_msg: "Votre panier est vide. Changeons cela, utilisez le lien ci-dessous pour commencer à parcourir nos produits.",
+            bag_empty: "Votre panier est vide.",
+            go_to_products: "Aller à la page de tous les produits",
+            explore_products: "Explorer les produits"
+        },
         featured_collections: {
             explore: "Explorer"
         },
@@ -332,10 +357,7 @@ export const dictionary = {
                 already_member: "Déjà membre ?",
                 sign_in: "Se connecter"
             },
-            addresses: {
-                title: "Adresses de livraison",
-                description: "Consultez et mettez à jour vos adresses de livraison, vous pouvez en ajouter autant que vous le souhaitez. En enregistrant vos adresses, elles seront disponibles lors du passage à la caisse."
-            },
+
             overview: {
                 hello: "Bonjour",
                 signed_in_as: "Connecté en tant que :",
@@ -410,6 +432,12 @@ export const dictionary = {
         checkout: {
             back_to_cart: "Retour au panier",
             back: "Retour"
+        },
+        megamenu: {
+            title: "Collections",
+            explore_collection: "Explorer la collection {title}",
+            view_all: "Voir toutes les collections",
+            discover_range: "Découvrez toute notre gamme d'art imprimé en 3D."
         }
     },
 } as const
@@ -461,6 +489,17 @@ export interface Dictionary {
     craftsmanship: {
         block1: { title: string; text: string }
         block2: { title: string; text: string }
+    }
+    craftsmanship_page: {
+        title: string
+        subtitle: string
+    }
+    cart: {
+        title: string
+        empty_msg: string
+        bag_empty: string
+        go_to_products: string
+        explore_products: string
     }
     featured_collections: {
         explore: string
@@ -553,6 +592,12 @@ export interface Dictionary {
         search: string
         account: string
         cart: string
+    }
+    megamenu: {
+        title: string
+        explore_collection: string
+        view_all: string
+        discover_range: string
     }
     checkout: {
         back_to_cart: string

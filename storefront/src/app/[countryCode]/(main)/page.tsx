@@ -1,14 +1,14 @@
 import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
-import FeaturedCollections from "@modules/home/components/featured-collections"
+
 import Hero from "@modules/home/components/hero"
 import Craftsmanship from "@modules/home/components/craftsmanship"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 import Newsletter from "@modules/home/components/newsletter"
-import Reassurance from "@modules/home/components/reassurance"
+
 
 export const metadata: Metadata = {
   title: "TeraPrint Studio",
@@ -33,10 +33,7 @@ export default async function Home({
   return (
     <>
       <Hero />
-      <Reassurance countryCode={countryCode} />
-      {collections && collections.length > 0 && (
-        <FeaturedCollections collections={collections} countryCode={countryCode} />
-      )}
+
       <ul className="flex flex-col gap-x-6">
         {collections && region && (
           <FeaturedProducts collections={collections} region={region} countryCode={countryCode} />

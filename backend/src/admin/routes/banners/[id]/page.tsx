@@ -159,15 +159,33 @@ const EditBannerPage = () => {
                     <div className="flex flex-col gap-2">
                         <Label>Badge Color</Label>
                         <div className="flex gap-2">
-                            <Input type="color" className="h-9 w-9 p-1" {...register("badge_color")} />
-                            <Input placeholder="#..." {...register("badge_color")} className="flex-1" />
+                            <Input
+                                type="color"
+                                className="h-9 w-9 p-1"
+                                value={watch("badge_color") || "#000000"}
+                                onChange={(e) => setValue("badge_color", e.target.value)}
+                            />
+                            <Input
+                                placeholder="#..."
+                                {...register("badge_color")}
+                                className="flex-1"
+                            />
                         </div>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label>Background Color</Label>
                         <div className="flex gap-2">
-                            <Input type="color" className="h-9 w-9 p-1" {...register("background_color")} />
-                            <Input placeholder="#..." {...register("background_color")} className="flex-1" />
+                            <Input
+                                type="color"
+                                className="h-9 w-9 p-1"
+                                value={watch("background_color") || "#000000"}
+                                onChange={(e) => setValue("background_color", e.target.value)}
+                            />
+                            <Input
+                                placeholder="#..."
+                                {...register("background_color")}
+                                className="flex-1"
+                            />
                         </div>
                     </div>
                 </div>

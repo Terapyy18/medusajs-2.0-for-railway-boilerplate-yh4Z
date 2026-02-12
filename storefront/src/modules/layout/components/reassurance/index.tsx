@@ -27,7 +27,7 @@ export default function Reassurance({ countryCode }: { countryCode: string }) {
     ]
 
     return (
-        <div className="bg-neutral-900 text-white border-t border-gray-800">
+        <div className="dark:bg-neutral-900 text-gray-900 dark:text-white white:text-gray-900 white:bg-white transition-colors duration-200">
             <div className="content-container py-12">
                 <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 gap-x-8">
                     {items.map((item) => (
@@ -36,7 +36,7 @@ export default function Reassurance({ countryCode }: { countryCode: string }) {
                                 <item.icon className="h-6 w-6" />
                             </div>
                             <div>
-                                <h3 className="text-base font-serif font-medium text-white">
+                                <h3 className="text-base font-serif font-medium text-gray-900 dark:text-white">
                                     {item.title}
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-400">

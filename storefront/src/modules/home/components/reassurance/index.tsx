@@ -28,7 +28,7 @@ const Reassurance = ({ countryCode }: { countryCode: string }) => {
     ]
 
     return (
-        <div className="w-full py-16 dark:bg-neutral-900 text-gray-900 dark:text-white transition-colors duration-200">
+        <div className="w-full py-16  text-gray-900 dark:text-white transition-colors duration-200">
             <div className="content-container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
                 {content.map((item, index) => {
                     const Icon = item.icon

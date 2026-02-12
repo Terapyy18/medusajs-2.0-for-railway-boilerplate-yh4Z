@@ -25,9 +25,12 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function Cart() {
+import { getDictionary } from "@lib/dictionary"
+
+export default async function Cart({ params }: { params: { countryCode: string } }) {
   const cart = await fetchCart()
   const customer = await getCustomer()
+  const dictionary = getDictionary(params.countryCode)
 
-  return <CartTemplate cart={cart} customer={customer} />
+  return <CartTemplate cart={cart} customer={customer} cartDictionary={dictionary.cart} />
 }
