@@ -1,4 +1,4 @@
-import { Text, Section, Hr } from '@react-email/components'
+import { Text, Section, Hr, Img } from '@react-email/components'
 import * as React from 'react'
 import { Base } from './base'
 import { OrderDTO, OrderAddressDTO } from '@medusajs/framework/types'
@@ -14,6 +14,8 @@ export interface OrderPlacedTemplateProps {
   order: OrderDTO & { display_id: string; summary: { raw_current_order_total: { value: number } } }
   shippingAddress: OrderAddressDTO
   preview?: string
+  locale?: 'fr' | 'en'
+  storeUrl?: string
 }
 
 export const isOrderPlacedTemplateData = (data: any): data is OrderPlacedTemplateProps =>
@@ -21,39 +23,87 @@ export const isOrderPlacedTemplateData = (data: any): data is OrderPlacedTemplat
 
 export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
   PreviewProps: OrderPlacedPreviewProps
-} = ({ order, shippingAddress, preview = 'Your order has been placed!' }) => {
+} = ({ order, shippingAddress, preview = 'Your order has been placed!', locale = 'en', storeUrl = 'http://localhost:8000' }) => {
+
+  const translations = {
+    en: {
+      title: 'Order Confirmation',
+      greeting: 'Dear',
+      message: 'Thank you for your recent order! Here are your order details:',
+      summary: 'Order Summary',
+      orderId: 'Order ID:',
+      date: 'Order Date:',
+      total: 'Total:',
+      shipping: 'Shipping Address',
+      items: 'Order Items',
+      itemCol: 'Item',
+      qtyCol: 'Quantity',
+      priceCol: 'Price',
+      footer: 'Thank you for shopping with TeraPrintStudio!',
+      rights: 'All rights reserved.'
+    },
+    fr: {
+      title: 'Confirmation de commande',
+      greeting: 'Cher/Chère',
+      message: 'Merci pour votre commande récente ! Voici les détails de votre commande :',
+      summary: 'Résumé de la commande',
+      orderId: 'Numéro de commande :',
+      date: 'Date de commande :',
+      total: 'Total :',
+      shipping: 'Adresse de livraison',
+      items: 'Articles commandés',
+      itemCol: 'Article',
+      qtyCol: 'Quantité',
+      priceCol: 'Prix',
+      footer: 'Merci d\'avoir commandé chez TeraPrintStudio !',
+      rights: 'Tous droits réservés.'
+    }
+  }
+
+  const t = translations[locale] || translations.en
+  const logoUrl = `${storeUrl}/logo.PNG`
+
   return (
     <Base preview={preview}>
+      <Section className="px-10 py-6 text-center">
+        <Img
+          src={logoUrl}
+          alt="TeraPrintStudio"
+          height="60"
+          className="mx-auto mb-4 object-contain"
+        />
+        <Hr className="border-gray-200 my-6" />
+      </Section>
       <Section>
         <Text style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', margin: '0 0 30px' }}>
-          Order Confirmation
+          {t.title}
         </Text>
 
         <Text style={{ margin: '0 0 15px' }}>
-          Dear {shippingAddress.first_name} {shippingAddress.last_name},
+          {t.greeting} {shippingAddress.first_name} {shippingAddress.last_name},
         </Text>
 
         <Text style={{ margin: '0 0 30px' }}>
-          Thank you for your recent order! Here are your order details:
+          {t.message}
         </Text>
 
         <Text style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 10px' }}>
-          Order Summary
+          {t.summary}
         </Text>
         <Text style={{ margin: '0 0 5px' }}>
-          Order ID: {order.display_id}
+          {t.orderId} {order.display_id}
         </Text>
         <Text style={{ margin: '0 0 5px' }}>
-          Order Date: {new Date(order.created_at).toLocaleDateString()}
+          {t.date} {new Date(order.created_at).toLocaleDateString()}
         </Text>
         <Text style={{ margin: '0 0 20px' }}>
-          Total: {order.summary.raw_current_order_total.value} {order.currency_code}
+          {t.total} {order.summary.raw_current_order_total.value} {order.currency_code}
         </Text>
 
         <Hr style={{ margin: '20px 0' }} />
 
         <Text style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 10px' }}>
-          Shipping Address
+          {t.shipping}
         </Text>
         <Text style={{ margin: '0 0 5px' }}>
           {shippingAddress.address_1}
@@ -68,7 +118,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
         <Hr style={{ margin: '20px 0' }} />
 
         <Text style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 15px' }}>
-          Order Items
+          {t.items}
         </Text>
 
         <div style={{
@@ -84,9 +134,9 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
             padding: '8px',
             borderBottom: '1px solid #ddd'
           }}>
-            <Text style={{ fontWeight: 'bold' }}>Item</Text>
-            <Text style={{ fontWeight: 'bold' }}>Quantity</Text>
-            <Text style={{ fontWeight: 'bold' }}>Price</Text>
+            <Text style={{ fontWeight: 'bold' }}>{t.itemCol}</Text>
+            <Text style={{ fontWeight: 'bold' }}>{t.qtyCol}</Text>
+            <Text style={{ fontWeight: 'bold' }}>{t.priceCol}</Text>
           </div>
           {order.items.map((item) => (
             <div key={item.id} style={{
@@ -101,6 +151,15 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
             </div>
           ))}
         </div>
+
+        <Section className="px-10 py-6 mt-8 border-t border-gray-100 text-center">
+          <Text className="text-xs text-gray-400 mb-2">
+            {t.footer}
+          </Text>
+          <Text className="text-xs text-gray-400">
+            © {new Date().getFullYear()} TeraPrintStudio. {t.rights}
+          </Text>
+        </Section>
       </Section>
     </Base>
   )

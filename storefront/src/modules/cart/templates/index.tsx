@@ -22,18 +22,18 @@ const CartTemplate = ({
             <div className="flex flex-col py-6 gap-y-6">
               {!customer && (
                 <>
-                  <SignInPrompt />
+                  <SignInPrompt cartDictionary={cartDictionary} />
                   <Divider />
                 </>
               )}
-              <ItemsTemplate items={cart?.items} />
+              <ItemsTemplate items={cart?.items} cartDictionary={cartDictionary} />
             </div>
             <div className="relative">
               <div className="flex flex-col gap-y-8 sticky top-12">
                 {cart && cart.region && (
                   <>
                     <div className="py-6">
-                      <Summary cart={cart as any} />
+                      <Summary cart={cart as any} cartDictionary={cartDictionary} />
                     </div>
                   </>
                 )}

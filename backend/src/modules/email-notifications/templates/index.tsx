@@ -2,10 +2,14 @@ import { ReactNode } from 'react'
 import { MedusaError } from '@medusajs/framework/utils'
 import { InviteUserEmail, INVITE_USER, isInviteUserData } from './invite-user'
 import { OrderPlacedTemplate, ORDER_PLACED, isOrderPlacedTemplateData } from './order-placed'
+import { OrderShippedTemplate, ORDER_SHIPPED, isOrderShippedTemplateData } from './order-shipped'
+import { OrderDeliveredTemplate, ORDER_DELIVERED, isOrderDeliveredTemplateData } from './order-delivered'
 
 export const EmailTemplates = {
   INVITE_USER,
-  ORDER_PLACED
+  ORDER_PLACED,
+  ORDER_SHIPPED,
+  ORDER_DELIVERED
 } as const
 
 export type EmailTemplateType = keyof typeof EmailTemplates
@@ -30,6 +34,24 @@ export function generateEmailTemplate(templateKey: string, data: unknown): React
       }
       return <OrderPlacedTemplate {...data} />
 
+    case EmailTemplates.ORDER_SHIPPED:
+      if (!isOrderShippedTemplateData(data)) {
+        throw new MedusaError(
+          MedusaError.Types.INVALID_DATA,
+          `Invalid data for template "${EmailTemplates.ORDER_SHIPPED}"`
+        )
+      }
+      return <OrderShippedTemplate {...data} />
+
+    case EmailTemplates.ORDER_DELIVERED:
+      if (!isOrderDeliveredTemplateData(data)) {
+        throw new MedusaError(
+          MedusaError.Types.INVALID_DATA,
+          `Invalid data for template "${EmailTemplates.ORDER_DELIVERED}"`
+        )
+      }
+      return <OrderDeliveredTemplate {...data} />
+
     default:
       throw new MedusaError(
         MedusaError.Types.INVALID_DATA,
@@ -38,4 +60,4 @@ export function generateEmailTemplate(templateKey: string, data: unknown): React
   }
 }
 
-export { InviteUserEmail, OrderPlacedTemplate }
+export { InviteUserEmail, OrderPlacedTemplate, OrderShippedTemplate, OrderDeliveredTemplate }

@@ -9,9 +9,12 @@ export default async function orderPlacedHandler({
 }: SubscriberArgs<any>) {
   const notificationModuleService: INotificationModuleService = container.resolve(Modules.NOTIFICATION)
   const orderModuleService: IOrderModuleService = container.resolve(Modules.ORDER)
-  
+
   const order = await orderModuleService.retrieveOrder(data.id, { relations: ['items', 'summary', 'shipping_address'] })
   const shippingAddress = await (orderModuleService as any).orderAddressService_.retrieve(order.shipping_address.id)
+
+  const locale = order.shipping_address?.country_code === 'fr' ? 'fr' : 'en'
+  const storeUrl = process.env.STORE_CORS?.split(',')[0] || 'http://localhost:8000'
 
   try {
     await notificationModuleService.createNotifications({
@@ -21,11 +24,15 @@ export default async function orderPlacedHandler({
       data: {
         emailOptions: {
           replyTo: 'info@example.com',
-          subject: 'Your order has been placed'
+          subject: locale === 'fr'
+            ? 'Confirmation de votre commande'
+            : 'Your order has been placed'
         },
         order,
         shippingAddress,
-        preview: 'Thank you for your order!'
+        locale,
+        storeUrl,
+        preview: locale === 'fr' ? 'Merci pour votre commande !' : 'Thank you for your order!'
       }
     })
   } catch (error) {

@@ -7,7 +7,7 @@ import { retrieveOrder } from "@lib/data/orders"
 import { HttpTypes } from "@medusajs/types"
 
 type Props = {
-  params: { id: string }
+  params: { id: string; countryCode: string }
 }
 
 async function getOrder(id: string) {
@@ -30,11 +30,15 @@ export const metadata: Metadata = {
   description: "You purchase was successful",
 }
 
+import { getDictionary } from "@lib/dictionary"
+
 export default async function OrderConfirmedPage({ params }: Props) {
   const order = await getOrder(params.id)
   if (!order) {
     return notFound()
   }
 
-  return <OrderCompletedTemplate order={order} />
+  const dictionary = getDictionary(params.countryCode)
+
+  return <OrderCompletedTemplate order={order} orderConfirmedDictionary={dictionary.order_confirmed} />
 }

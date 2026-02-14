@@ -95,7 +95,20 @@ export const dictionary = {
             empty_msg: "You don't have anything in your cart. Let's change that, use the link below to start browsing our products.",
             bag_empty: "Your shopping bag is empty.",
             go_to_products: "Go to all products page",
-            explore_products: "Explore products"
+            explore_products: "Explore products",
+            summary: "Summary",
+            checkout_button: "Go to checkout",
+            table_headers: {
+                item: "Item",
+                quantity: "Quantity",
+                price: "Price",
+                total: "Total"
+            },
+            sign_in: {
+                heading: "Already have an account?",
+                text: "Sign in for a better experience.",
+                button: "Sign in"
+            }
         },
         featured_collections: {
             explore: "Explore"
@@ -213,7 +226,61 @@ export const dictionary = {
         },
         checkout: {
             back_to_cart: "Back to shopping cart",
-            back: "Back"
+            back: "Back",
+            in_your_cart: "In your Cart",
+            steps: {
+                address: { title: "Shipping Address", action: "Edit" },
+                billing_address: { title: "Billing Address" },
+                delivery: { title: "Delivery", action: "Edit" },
+                payment: { title: "Payment", action: "Edit" },
+                review: { title: "Review" }
+            },
+            actions: {
+                continue_to_delivery: "Continue to delivery",
+                continue_to_payment: "Continue to payment",
+                continue_to_review: "Continue to review",
+                enter_card_details: "Enter card details",
+                place_order: "Place Order"
+            },
+            messages: {
+                billing_same_as_shipping: "Billing- and delivery address are the same.",
+                legal_text: "By clicking the Place Order button, you confirm that you have read, understand and accept our Terms of Use, Terms of Sale and Returns Policy and acknowledge that you have read Medusa Store's Privacy Policy."
+            },
+            payment: {
+                method_title: "Payment method",
+                details_title: "Payment details",
+                gift_card: "Gift card",
+                another_step: "Another step will appear"
+            }
+        },
+        order_confirmed: {
+            title: "Thank you!",
+            subtitle: "Your order was placed successfully.",
+            summary_title: "Summary",
+            details: {
+                sent_to: "We have sent the order confirmation details to",
+                date: "Order date:",
+                number: "Order number:",
+                status: "Order status:",
+                payment_status: "Payment status:"
+            },
+            shipping: {
+                title: "Delivery",
+                address_title: "Shipping Address",
+                contact_title: "Contact",
+                method_title: "Method"
+            },
+            payment: {
+                title: "Payment",
+                method_title: "Payment method",
+                details_title: "Payment details",
+                paid_at: "paid at"
+            },
+            help: {
+                title: "Need help?",
+                contact: "Contact",
+                returns: "Returns & Exchanges"
+            }
         },
         megamenu: {
             title: "Collections",
@@ -318,7 +385,20 @@ export const dictionary = {
             empty_msg: "Votre panier est vide. Changeons cela, utilisez le lien ci-dessous pour commencer à parcourir nos produits.",
             bag_empty: "Votre panier est vide.",
             go_to_products: "Aller à la page de tous les produits",
-            explore_products: "Explorer les produits"
+            explore_products: "Explorer les produits",
+            summary: "Résumé",
+            checkout_button: "Passer à la caisse",
+            table_headers: {
+                item: "Article",
+                quantity: "Quantité",
+                price: "Prix",
+                total: "Total"
+            },
+            sign_in: {
+                heading: "Déjà un compte ?",
+                text: "Connectez-vous pour une meilleure expérience.",
+                button: "Se connecter"
+            }
         },
         featured_collections: {
             explore: "Explorer"
@@ -431,7 +511,61 @@ export const dictionary = {
         },
         checkout: {
             back_to_cart: "Retour au panier",
-            back: "Retour"
+            back: "Retour",
+            in_your_cart: "Dans votre panier",
+            steps: {
+                address: { title: "Adresse de livraison", action: "Modifier" },
+                billing_address: { title: "Adresse de facturation" },
+                delivery: { title: "Livraison", action: "Modifier" },
+                payment: { title: "Paiement", action: "Modifier" },
+                review: { title: "Vérification" }
+            },
+            actions: {
+                continue_to_delivery: "Continuer vers la livraison",
+                continue_to_payment: "Continuer vers le paiement",
+                continue_to_review: "Continuer vers la vérification",
+                enter_card_details: "Entrer les détails de la carte",
+                place_order: "Passer la commande"
+            },
+            messages: {
+                billing_same_as_shipping: "L'adresse de facturation et de livraison sont identiques.",
+                legal_text: "En cliquant sur le bouton Passer la commande, vous confirmez avoir lu, compris et accepté nos Conditions d'utilisation, Conditions de vente et Politique de retour et reconnaissez avoir lu la Politique de confidentialité de TeraPrint Studio."
+            },
+            payment: {
+                method_title: "Moyen de paiement",
+                details_title: "Détails du paiement",
+                gift_card: "Carte cadeau",
+                another_step: "Une autre étape apparaîtra"
+            }
+        },
+        order_confirmed: {
+            title: "Merci !",
+            subtitle: "Votre commande a été passée avec succès.",
+            summary_title: "Résumé",
+            details: {
+                sent_to: "Nous avons envoyé les détails de confirmation de commande à",
+                date: "Date de commande :",
+                number: "Numéro de commande :",
+                status: "Statut de commande :",
+                payment_status: "Statut du paiement :"
+            },
+            shipping: {
+                title: "Livraison",
+                address_title: "Adresse de livraison",
+                contact_title: "Contact",
+                method_title: "Méthode"
+            },
+            payment: {
+                title: "Paiement",
+                method_title: "Moyen de paiement",
+                details_title: "Détails du paiement",
+                paid_at: "payé le"
+            },
+            help: {
+                title: "Besoin d'aide ?",
+                contact: "Contact",
+                returns: "Retours & Échanges"
+            }
         },
         megamenu: {
             title: "Collections",
@@ -500,6 +634,19 @@ export interface Dictionary {
         bag_empty: string
         go_to_products: string
         explore_products: string
+        summary: string
+        checkout_button: string
+        table_headers: {
+            item: string
+            quantity: string
+            price: string
+            total: string
+        }
+        sign_in: {
+            heading: string
+            text: string
+            button: string
+        }
     }
     featured_collections: {
         explore: string
@@ -602,6 +749,60 @@ export interface Dictionary {
     checkout: {
         back_to_cart: string
         back: string
+        in_your_cart: string
+        steps: {
+            address: { title: string; action: string }
+            billing_address: { title: string }
+            delivery: { title: string; action: string }
+            payment: { title: string; action: string }
+            review: { title: string }
+        }
+        actions: {
+            continue_to_delivery: string
+            continue_to_payment: string
+            continue_to_review: string
+            enter_card_details: string
+            place_order: string
+        }
+        messages: {
+            billing_same_as_shipping: string
+            legal_text: string
+        }
+        payment: {
+            method_title: string
+            details_title: string
+            gift_card: string
+            another_step: string
+        }
+    }
+    order_confirmed: {
+        title: string
+        subtitle: string
+        summary_title: string
+        details: {
+            sent_to: string
+            date: string
+            number: string
+            status: string
+            payment_status: string
+        }
+        shipping: {
+            title: string
+            address_title: string
+            contact_title: string
+            method_title: string
+        }
+        payment: {
+            title: string
+            method_title: string
+            details_title: string
+            paid_at: string
+        }
+        help: {
+            title: string
+            contact: string
+            returns: string
+        }
     }
 }
 

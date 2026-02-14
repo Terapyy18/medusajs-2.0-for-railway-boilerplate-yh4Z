@@ -24,13 +24,6 @@ export default function Megamenu({
         return null
     }
 
-    const getThemeImage = (handle: string) => {
-        if (handle.includes("egypt")) return "/images/themes/egypt-thumb.jpg"
-        if (handle.includes("zombie")) return "/images/themes/zombie-thumb.jpg"
-        if (handle.includes("rome")) return "/images/themes/rome-thumb.jpg"
-        return null
-    }
-
     return (
         <div
             className="relative h-full"
@@ -42,7 +35,7 @@ export default function Megamenu({
                     "relative h-full flex items-center transition-colors duration-200 outline-none uppercase cursor-pointer",
                     {
                         "text-accent-gold": isOpen,
-                        "text-ui-fg-subtle hover:text-ui-fg-base": !isOpen,
+                        "text-gray-900 dark:text-ui-fg-subtle hover:text-accent-gold dark:hover:text-ui-fg-base": !isOpen,
                     }
                 )}
             >
@@ -59,48 +52,32 @@ export default function Megamenu({
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <div className="absolute top-full left-1/2 -translate-x-1/2 z-50 mt-0 w-screen max-w-4xl px-4 sm:px-0">
-                    <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-8 bg-primary p-7 lg:grid-cols-3">
-                            {collections.slice(0, 3).map((collection) => {
-                                // const img = getThemeImage(collection.handle)
-                                return (
-                                    <LocalizedClientLink
-                                        key={collection.id}
-                                        href={`/collections/${collection.handle}`}
-                                        className="-m-3 flex flex-col rounded-lg p-3 transition duration-150 ease-in-out hover:bg-white/5"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        <div className="relative h-32 w-full overflow-hidden rounded-md mb-3 bg-gray-800">
-                                            <div className="absolute inset-0 flex items-center justify-center text-white/20 font-serif text-2xl">
-                                                {collection.title.charAt(0)}
-                                            </div>
-                                        </div>
-                                        <div className="ml-0">
-                                            <p className="text-base font-serif font-medium text-accent-gold">
-                                                {collection.title}
-                                            </p>
-                                            <p className="mt-1 text-sm text-gray-400">
-                                                {dictionary.explore_collection.replace("{title}", collection.title)}
-                                            </p>
-                                        </div>
-                                    </LocalizedClientLink>
-                                )
-                            })}
+                <div className="absolute top-full left-0 z-50 mt-0 w-64">
+                    <div className="overflow-hidden rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white  dark:bg-primary border border-gray-200 dark:border-white/10">
+                        <div className="py-2">
+                            {collections.slice(0, 6).map((collection) => (
+                                <LocalizedClientLink
+                                    key={collection.id}
+                                    href={`/collections/${collection.handle}`}
+                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors duration-150"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <p className="text-sm font-serif dark:text-black hover:text-accent-gold dark:hover:text-accent-gold transition-colors dark:text-white">
+                                        {collection.title}
+                                    </p>
+                                </LocalizedClientLink>
+                            ))}
                         </div>
-                        <div className="bg-gray-900 p-4">
+                        <div className="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5">
                             <LocalizedClientLink
                                 href="/store"
-                                className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-white/5"
+                                className="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-150"
                                 onClick={() => setIsOpen(false)}
                             >
-                                <span className="flex items-center">
-                                    <span className="text-sm font-medium text-white">
+                                <span className="flex items-center justify-between">
+                                    <span className="text-sm font-medium text-accent-gold dark:text-black">
                                         {dictionary.view_all}
                                     </span>
-                                </span>
-                                <span className="block text-sm text-gray-400">
-                                    {dictionary.discover_range}
                                 </span>
                             </LocalizedClientLink>
                         </div>

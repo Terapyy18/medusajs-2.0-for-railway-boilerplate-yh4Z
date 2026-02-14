@@ -14,11 +14,13 @@ import { isManual, isPaypal, isStripe } from "@lib/constants"
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
   "data-testid": string
+  text?: string
 }
 
 const PaymentButton: React.FC<PaymentButtonProps> = ({
   cart,
   "data-testid": dataTestId,
+  text
 }) => {
   const notReady =
     !cart ||
@@ -44,11 +46,12 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
           notReady={notReady}
           cart={cart}
           data-testid={dataTestId}
+          text={text}
         />
       )
     case isManual(paymentSession?.provider_id):
       return (
-        <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
+        <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} text={text} />
       )
     case isPaypal(paymentSession?.provider_id):
       return (
@@ -86,10 +89,12 @@ const StripePaymentButton = ({
   cart,
   notReady,
   "data-testid": dataTestId,
+  text
 }: {
   cart: HttpTypes.StoreCart
   notReady: boolean
   "data-testid"?: string
+  text?: string
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -179,7 +184,7 @@ const StripePaymentButton = ({
         isLoading={submitting}
         data-testid={dataTestId}
       >
-        Place order
+        {text || "Place order"}
       </Button>
       <ErrorMessage
         error={errorMessage}
@@ -259,7 +264,7 @@ const PayPalPaymentButton = ({
   }
 }
 
-const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
+const ManualTestPaymentButton = ({ notReady, text }: { notReady: boolean, text?: string }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -288,7 +293,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         size="large"
         data-testid="submit-order-button"
       >
-        Place order
+        {text || "Place order"}
       </Button>
       <ErrorMessage
         error={errorMessage}

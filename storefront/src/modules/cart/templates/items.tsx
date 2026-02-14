@@ -7,25 +7,26 @@ import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
 type ItemsTemplateProps = {
   items?: HttpTypes.StoreCartLineItem[]
+  cartDictionary: any
 }
 
-const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
+const ItemsTemplate = ({ items, cartDictionary }: ItemsTemplateProps) => {
   return (
     <div>
       <div className="pb-3 flex items-center">
-        <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
+        <Heading className="text-[2rem] leading-[2.75rem]">{cartDictionary.title}</Heading>
       </div>
       <Table>
         <Table.Header className="border-t-0 ">
           <Table.Row className="text-ui-fg-subtle txt-medium-plus !bg-transparent !hover:bg-transparent">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
+            <Table.HeaderCell className="!pl-0">{cartDictionary.table_headers.item}</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
+            <Table.HeaderCell>{cartDictionary.table_headers.quantity}</Table.HeaderCell>
             <Table.HeaderCell className="hidden small:table-cell">
-              Price
+              {cartDictionary.table_headers.price}
             </Table.HeaderCell>
             <Table.HeaderCell className="!pr-0 text-right">
-              Total
+              {cartDictionary.table_headers.total}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

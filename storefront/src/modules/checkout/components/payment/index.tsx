@@ -18,9 +18,11 @@ import { initiatePaymentSession } from "@lib/data/cart"
 const Payment = ({
   cart,
   availablePaymentMethods,
+  checkoutDictionary
 }: {
   cart: any
   availablePaymentMethods: any[]
+  checkoutDictionary: any
 }) => {
   const activeSession = cart.payment_collection?.payment_sessions?.find(
     (paymentSession: any) => paymentSession.status === "pending"
@@ -126,7 +128,7 @@ const Payment = ({
             }
           )}
         >
-          Payment
+          {checkoutDictionary.steps.payment.title}
           {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
         {!isOpen && paymentReady && (
@@ -136,7 +138,7 @@ const Payment = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-payment-button"
             >
-              Edit
+              {checkoutDictionary.steps.payment.action}
             </button>
           </Text>
         )}
@@ -167,7 +169,7 @@ const Payment = ({
               {isStripe && stripeReady && (
                 <div className="mt-5 transition-all duration-150 ease-in-out">
                   <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                    Enter your card details:
+                    {checkoutDictionary.payment.method_title}
                   </Text>
 
                   <CardElement
@@ -189,13 +191,13 @@ const Payment = ({
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                {checkoutDictionary.payment.method_title}
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
                 data-testid="payment-method-summary"
               >
-                Gift card
+                {checkoutDictionary.payment.gift_card}
               </Text>
             </div>
           )}
@@ -217,8 +219,8 @@ const Payment = ({
             data-testid="submit-payment-button"
           >
             {!activeSession && isStripeFunc(selectedPaymentMethod)
-              ? " Enter card details"
-              : "Continue to review"}
+              ? checkoutDictionary.actions.enter_card_details
+              : checkoutDictionary.actions.continue_to_review}
           </Button>
         </div>
 
@@ -227,7 +229,7 @@ const Payment = ({
             <div className="flex items-start gap-x-1 w-full">
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Payment method
+                  {checkoutDictionary.payment.method_title}
                 </Text>
                 <Text
                   className="txt-medium text-ui-fg-subtle"
@@ -239,7 +241,7 @@ const Payment = ({
               </div>
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Payment details
+                  {checkoutDictionary.payment.details_title}
                 </Text>
                 <div
                   className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
@@ -253,7 +255,7 @@ const Payment = ({
                   <Text>
                     {isStripeFunc(selectedPaymentMethod) && cardBrand
                       ? cardBrand
-                      : "Another step will appear"}
+                      : checkoutDictionary.payment.another_step}
                   </Text>
                 </div>
               </div>
@@ -261,13 +263,13 @@ const Payment = ({
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                {checkoutDictionary.payment.method_title}
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
                 data-testid="payment-method-summary"
               >
-                Gift card
+                {checkoutDictionary.payment.gift_card}
               </Text>
             </div>
           ) : null}

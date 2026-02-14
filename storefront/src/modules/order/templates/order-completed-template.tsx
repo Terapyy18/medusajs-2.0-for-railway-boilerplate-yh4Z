@@ -12,12 +12,15 @@ import { HttpTypes } from "@medusajs/types"
 
 type OrderCompletedTemplateProps = {
   order: HttpTypes.StoreOrder
+  orderConfirmedDictionary: any
 }
 
-export default function OrderCompletedTemplate({
+export default async function OrderCompletedTemplate({
   order,
+  orderConfirmedDictionary
 }: OrderCompletedTemplateProps) {
-  const isOnboarding = cookies().get("_medusa_onboarding")?.value === "true"
+  const cookiesVal = await cookies()
+  const isOnboarding = cookiesVal.get("_medusa_onboarding")?.value === "true"
 
   return (
     <div className="py-6 min-h-[calc(100vh-64px)]">
@@ -31,18 +34,18 @@ export default function OrderCompletedTemplate({
             level="h1"
             className="flex flex-col gap-y-3 text-ui-fg-base text-3xl mb-4"
           >
-            <span>Thank you!</span>
-            <span>Your order was placed successfully.</span>
+            <span>{orderConfirmedDictionary.title}</span>
+            <span>{orderConfirmedDictionary.subtitle}</span>
           </Heading>
-          <OrderDetails order={order} />
+          <OrderDetails order={order} orderConfirmedDictionary={orderConfirmedDictionary} />
           <Heading level="h2" className="flex flex-row text-3xl-regular">
-            Summary
+            {orderConfirmedDictionary.summary_title}
           </Heading>
           <Items items={order.items} />
           <CartTotals totals={order} />
-          <ShippingDetails order={order} />
-          <PaymentDetails order={order} />
-          <Help />
+          <ShippingDetails order={order} orderConfirmedDictionary={orderConfirmedDictionary} />
+          <PaymentDetails order={order} orderConfirmedDictionary={orderConfirmedDictionary} />
+          <Help orderConfirmedDictionary={orderConfirmedDictionary} />
         </div>
       </div>
     </div>

@@ -26,16 +26,19 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function Checkout() {
+import { getDictionary } from "@lib/dictionary"
+
+export default async function Checkout({ params }: { params: { countryCode: string } }) {
   const cart = await fetchCart()
   const customer = await getCustomer()
+  const dictionary = getDictionary(params.countryCode)
 
   return (
     <div className="grid grid-cols-1 small:grid-cols-[1fr_416px] content-container gap-x-40 py-12">
       <Wrapper cart={cart}>
-        <CheckoutForm cart={cart} customer={customer} />
+        <CheckoutForm cart={cart} customer={customer} checkoutDictionary={dictionary.checkout} />
       </Wrapper>
-      <CheckoutSummary cart={cart} />
+      <CheckoutSummary cart={cart} checkoutDictionary={dictionary.checkout} />
     </div>
   )
 }
