@@ -3,30 +3,41 @@
 import { Github } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { getDictionary } from "@lib/dictionary"
-import { useParams } from "next/navigation"
+import Image from "next/image"
 
-const Hero = () => {
-  const { countryCode } = useParams()
-  const dictionary = getDictionary(countryCode as string)
+import { Dictionary } from "@lib/dictionary"
 
+const Hero = ({ dictionary }: { dictionary: Dictionary }) => {
   return (
     <div className="h-screen w-full relative overflow-hidden">
       {/* Background Video */}
       {/* Background Images - Theme Aware */}
       <div className="absolute inset-0 w-full h-full">
         {/* Dark Theme Image (bg1.jpg) - Shown only in dark mode */}
-        <img
-          src="/bg1.jpg"
-          alt="Hero Background Dark"
-          className="hidden dark:block w-full h-full object-cover"
-        />
+        <div className="hidden dark:block w-full h-full relative">
+          <Image
+            src="/bg1.jpg"
+            alt="Hero Background Dark"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            quality={90}
+          />
+        </div>
+
         {/* Light Theme Image (BG2.jpg) - Shown only in light mode */}
-        <img
-          src="/BG2.jpg"
-          alt="Hero Background Light"
-          className="block dark:hidden w-full h-full object-cover"
-        />
+        <div className="block dark:hidden w-full h-full relative">
+          <Image
+            src="/BG2.jpg"
+            alt="Hero Background Light"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            quality={90}
+          />
+        </div>
       </div>
 
       {/* Overlay */}

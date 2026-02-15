@@ -7,6 +7,7 @@ import { getRegion } from "@lib/data/regions"
 
 import Newsletter from "@modules/home/components/newsletter"
 import RecommendedProducts from "@modules/home/components/recommended-products"
+import { getDictionary } from "@lib/dictionary"
 
 export const metadata: Metadata = {
   title: "TeraPrint Studio",
@@ -22,6 +23,7 @@ export default async function Home({
   const { countryCode } = await params
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
+  const dictionary = getDictionary(countryCode)
 
   // Allow rendering even if collections/region are missing to avoid empty page
   // if (!collections || !region) {
@@ -30,13 +32,13 @@ export default async function Home({
 
   return (
     <>
-      <Hero />
+      <Hero dictionary={dictionary} />
 
       <ul className="flex flex-col gap-x-6">
         <RecommendedProducts countryCode={countryCode} />
       </ul>
       <Craftsmanship countryCode={countryCode} />
-      <Newsletter />
+      <Newsletter dictionary={dictionary} />
     </>
   )
 }

@@ -13,6 +13,7 @@ import { HttpTypes } from "@medusajs/types"
 import Storytelling from "@modules/products/components/storytelling"
 import Manufacturing from "@modules/products/components/manufacturing"
 import StructuredData from "@modules/products/components/structured-data"
+import Reassurance from "@modules/home/components/reassurance"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -59,21 +60,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
             </Suspense>
 
             {/* Reassurance Bar (Compact) */}
-            <div className="border-t  pt-6">
-              {/* Reusing main reassurance logic or a simpler version here if needed. 
-                     For now, let's keep it clean or import specific small icons if requested.
-                     The prompt asked for "ReassuranceBar (version compacte)". 
-                     I'll verify if I should import the main one or just render icons.
-                     Given I don't have a specific compact reassurance component, I'll add a simple text row.
-                 */}
-              <div className="flex items-center justify-between text-xs text-gray-400 uppercase tracking-wider">
-                <span>Livraison Sécurisée</span>
-                <span>•</span>
-                <span>Retour sous 30j</span>
-                <span>•</span>
-                <span>Support 24/7</span>
-              </div>
-            </div>
+            <Reassurance countryCode={countryCode} className="py-4 border-t" />
           </div>
 
           <ProductTabs product={product} />
@@ -83,10 +70,6 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
       {/* Storytelling Section */}
       <Storytelling />
-
-      {/* Manufacturing Section */}
-      <Manufacturing />
-
       <div
         className="content-container my-16 small:my-32"
         data-testid="related-products-container"

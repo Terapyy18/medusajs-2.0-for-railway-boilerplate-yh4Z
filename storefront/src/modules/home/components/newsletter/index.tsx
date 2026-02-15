@@ -2,13 +2,12 @@
 
 import { useState } from "react"
 import { useParams } from "next/navigation"
-import { getDictionary } from "@lib/dictionary"
 
-const Newsletter = () => {
+
+const Newsletter = ({ dictionary }: { dictionary: any }) => {
     const [email, setEmail] = useState("")
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
     const { countryCode } = useParams()
-    const dictionary = getDictionary(countryCode as string)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()

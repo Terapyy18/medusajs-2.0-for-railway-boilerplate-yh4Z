@@ -18,6 +18,9 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
+  icons: {
+    icon: '/logo.png',
+  },
 }
 
 import { ThemeProvider } from "@modules/providers/theme-provider"

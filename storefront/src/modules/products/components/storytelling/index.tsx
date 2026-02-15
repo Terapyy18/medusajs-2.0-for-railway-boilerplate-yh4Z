@@ -1,4 +1,5 @@
 import { Text } from "@medusajs/ui"
+import Image from "next/image"
 
 export default function Storytelling() {
     return (
@@ -19,7 +20,15 @@ export default function Storytelling() {
                 <div className="flex-1 h-[400px] w-full bg-ui-bg-subtle rounded-lg overflow-hidden relative">
                     {/* Placeholder for story image */}
                     <div className="absolute inset-0 bg-neutral-200 flex items-center justify-center text-neutral-400">
-                        Image d'Ambiance
+                        <Image
+                            src="/rome_view.jpg"
+                            alt="Hero Background Dark"
+                            fill
+                            priority
+                            className="object-cover"
+                            sizes="100vw"
+                            quality={75}
+                        />
                     </div>
                 </div>
             </div>

@@ -114,7 +114,11 @@ export const dictionary = {
             explore: "Explore"
         },
         products: {
-            view_all: "View all"
+            view_all: "View all",
+            related_products: {
+                title: "Related products",
+                subtitle: "You might also want to check out these products."
+            }
         },
         recommended_products: {
             title: "Our Creations",
@@ -404,7 +408,11 @@ export const dictionary = {
             explore: "Explorer"
         },
         products: {
-            view_all: "Voir tout"
+            view_all: "Voir tout",
+            related_products: {
+                title: "Produits similaires",
+                subtitle: "Vous aimerez peut-être aussi ces produits."
+            }
         },
         recommended_products: {
             title: "Nos Créations",
@@ -653,6 +661,10 @@ export interface Dictionary {
     }
     products: {
         view_all: string
+        related_products: {
+            title: string
+            subtitle: string
+        }
     }
     recommended_products: {
         title: string

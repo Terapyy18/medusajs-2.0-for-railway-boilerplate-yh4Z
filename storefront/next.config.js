@@ -45,6 +45,7 @@ const nextConfig = {
         hostname: process.env.NEXT_PUBLIC_MINIO_ENDPOINT,
       }] : []),
     ],
+    qualities: [25, 50, 75],
   },
   serverRuntimeConfig: {
     port: process.env.PORT || 3000
