@@ -1,4 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
+import BannerModuleService from "../../../modules/banner/service"
 
 export const GET = async (
     req: MedusaRequest,
@@ -10,7 +11,7 @@ export const GET = async (
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS")
     res.setHeader("Access-Control-Allow-Headers", "Content-Type")
 
-    const bannerModuleService = req.scope.resolve("banner")
+    const bannerModuleService = req.scope.resolve<BannerModuleService>("banner")
 
     const banners = await bannerModuleService.listBanners({
         is_active: true
