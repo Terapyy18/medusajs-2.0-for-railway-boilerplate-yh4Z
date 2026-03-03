@@ -1,4 +1,6 @@
-import { useFormState } from "react-dom"
+import { useActionState } from "react"
+import { useParams } from "next/navigation"
+import { getDictionary } from "@lib/dictionary"
 
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import Input from "@modules/common/components/input"
@@ -11,16 +13,19 @@ type Props = {
 }
 
 const Login = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useFormState(login, null)
+  const [message, formAction] = useActionState(login, null)
+  const params = useParams()
+  const countryCode = params?.countryCode as string
+  const dictionary = getDictionary(countryCode)
 
   return (
     <div
       className="max-w-sm w-full flex flex-col items-center"
       data-testid="login-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
+      <h1 className="text-large-semi uppercase mb-6 text-gray-900 dark:text-white">{dictionary.account.login.title}</h1>
+      <p className="text-center text-base-regular text-gray-400 mb-8">
+        {dictionary.account.login.subtitle}
       </p>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
@@ -47,16 +52,21 @@ const Login = ({ setCurrentView }: Props) => {
           Sign in
         </SubmitButton>
       </form>
-      <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Not a member?{" "}
+      <button
+        className="underline text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mt-2 self-start text-small-regular"
+        onClick={() => setCurrentView(LOGIN_VIEW.FORGOT_PASSWORD)}
+      >
+        {dictionary.account.login.forgot_password}
+      </button>
+      <span className="text-center text-gray-500 dark:text-gray-400 text-small-regular mt-6 flex flex-col gap-2">
+        {dictionary.account.login.no_account}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
-          className="underline"
+          className="w-full py-2 bg-neutral-100 dark:bg-neutral-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
           data-testid="register-button"
         >
-          Join us
+          {dictionary.account.register.cta}
         </button>
-        .
       </span>
     </div>
   )

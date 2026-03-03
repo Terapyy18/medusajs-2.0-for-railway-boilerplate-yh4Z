@@ -1,14 +1,18 @@
 import { Metadata } from "next"
 
-import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import Craftsmanship from "@modules/home/components/craftsmanship"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
+import Newsletter from "@modules/home/components/newsletter"
+import RecommendedProducts from "@modules/home/components/recommended-products"
+import { getDictionary } from "@lib/dictionary"
+
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "TeraPrint Studio",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "Luxury 3D Printed Chess Sets & Art. Made in France.",
 }
 
 export default async function Home({
@@ -19,19 +23,17 @@ export default async function Home({
   const { countryCode } = await params
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
-
-  if (!collections || !region) {
-    return null
-  }
+  const dictionary = getDictionary(countryCode)
 
   return (
     <>
-      <Hero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
-      </div>
+      <Hero dictionary={dictionary} />
+
+      <ul className="flex flex-col gap-x-6">
+        <RecommendedProducts countryCode={countryCode} />
+      </ul>
+      <Craftsmanship countryCode={countryCode} />
+      <Newsletter dictionary={dictionary} />
     </>
   )
 }

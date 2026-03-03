@@ -10,6 +10,10 @@ import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-relat
 import { notFound } from "next/navigation"
 import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
+import Storytelling from "@modules/products/components/storytelling"
+import Manufacturing from "@modules/products/components/manufacturing"
+import StructuredData from "@modules/products/components/structured-data"
+import Reassurance from "@modules/home/components/reassurance"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -28,32 +32,44 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
   return (
     <>
+      <StructuredData product={product} />
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+        className="content-container flex flex-col small:flex-row small:items-start py-6 relative gap-x-12"
         data-testid="product-container"
       >
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
-          <ProductInfo product={product} />
-          <ProductTabs product={product} />
-        </div>
-        <div className="block w-full relative">
+        {/* Left Column: Sticky Gallery */}
+        <div className="block w-full small:w-1/2 relative small:sticky small:top-24 self-start">
           <ImageGallery images={product?.images || []} />
         </div>
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
+
+        {/* Right Column: Info & Actions */}
+        <div className="flex flex-col small:w-1/2 py-8 gap-y-12">
+          <ProductInfo product={product} />
+
+          <div className="flex flex-col gap-y-6">
+            <Suspense
+              fallback={
+                <ProductActions
+                  disabled={true}
+                  product={product}
+                  region={region}
+                />
+              }
+            >
+              <ProductActionsWrapper id={product.id} region={region} />
+            </Suspense>
+
+            {/* Reassurance Bar (Compact) */}
+            <Reassurance countryCode={countryCode} className="py-4 border-t" />
+          </div>
+
+          <ProductTabs product={product} />
           <ProductOnboardingCta />
-          <Suspense
-            fallback={
-              <ProductActions
-                disabled={true}
-                product={product}
-                region={region}
-              />
-            }
-          >
-            <ProductActionsWrapper id={product.id} region={region} />
-          </Suspense>
         </div>
       </div>
+
+      {/* Storytelling Section */}
+      <Storytelling />
       <div
         className="content-container my-16 small:my-32"
         data-testid="related-products-container"

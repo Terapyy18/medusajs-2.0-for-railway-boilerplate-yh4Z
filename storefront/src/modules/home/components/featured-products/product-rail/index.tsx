@@ -3,15 +3,19 @@ import { Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
+import { getDictionary } from "@lib/dictionary"
 
 export default function ProductRail({
   collection,
   region,
+  countryCode
 }: {
   collection: HttpTypes.StoreCollection
   region: HttpTypes.StoreRegion
+  countryCode: string
 }) {
   const { products } = collection
+  const dictionary = getDictionary(countryCode)
 
   if (!products) {
     return null
@@ -22,7 +26,7 @@ export default function ProductRail({
       <div className="flex justify-between mb-8">
         <Text className="txt-xlarge">{collection.title}</Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
+          {dictionary.products.view_all}
         </InteractiveLink>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">

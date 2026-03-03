@@ -5,6 +5,8 @@ import { useEffect } from "react"
 import useToggleState from "@lib/hooks/use-toggle-state"
 import { useFormStatus } from "react-dom"
 
+import { Dictionary } from "@lib/dictionary"
+
 type AccountInfoProps = {
   label: string
   currentInfo: string | React.ReactNode
@@ -14,6 +16,7 @@ type AccountInfoProps = {
   clearState: () => void
   children?: React.ReactNode
   'data-testid'?: string
+  dictionary: Dictionary
 }
 
 const AccountInfo = ({
@@ -24,7 +27,8 @@ const AccountInfo = ({
   clearState,
   errorMessage = "An error occurred, please try again",
   children,
-  'data-testid': dataTestid
+  'data-testid': dataTestid,
+  dictionary
 }: AccountInfoProps) => {
   const { state, close, toggle } = useToggleState()
 
@@ -63,7 +67,7 @@ const AccountInfo = ({
             data-testid="edit-button"
             data-active={state}
           >
-            {state ? "Cancel" : "Edit"}
+            {state ? dictionary.account.profile.cancel : dictionary.account.profile.edit}
           </Button>
         </div>
       </div>
@@ -82,7 +86,7 @@ const AccountInfo = ({
           data-testid="success-message"
         >
           <Badge className="p-2 my-4" color="green">
-            <span>{label} updated succesfully</span>
+            <span>{label} {dictionary.account.profile.updated_success}</span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -126,7 +130,7 @@ const AccountInfo = ({
                 type="submit"
                 data-testid="save-button"
               >
-                Save changes
+                {dictionary.account.profile.save_changes}
               </Button>
             </div>
           </div>

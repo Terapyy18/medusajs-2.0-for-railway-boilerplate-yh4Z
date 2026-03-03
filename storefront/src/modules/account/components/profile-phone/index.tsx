@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useEffect } from "react"
-import { useFormState } from "react-dom"
+import React, { useActionState, useEffect } from "react"
+// import { useFormState } from "react-dom"
 
 import Input from "@modules/common/components/input"
 
@@ -9,11 +9,14 @@ import AccountInfo from "../account-info"
 import { HttpTypes } from "@medusajs/types"
 import { updateCustomer } from "@lib/data/customer"
 
+import { Dictionary } from "@lib/dictionary"
+
 type MyInformationProps = {
   customer: HttpTypes.StoreCustomer
+  dictionary: Dictionary
 }
 
-const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
+const ProfilePhone: React.FC<MyInformationProps> = ({ customer, dictionary }) => {
   const [successState, setSuccessState] = React.useState(false)
 
   const updateCustomerPhone = async (
@@ -32,7 +35,7 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
     }
   }
 
-  const [state, formAction] = useFormState(updateCustomerPhone, {
+  const [state, formAction] = useActionState(updateCustomerPhone, {
     error: false,
     success: false,
   })
@@ -48,17 +51,18 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   return (
     <form action={formAction} className="w-full">
       <AccountInfo
-        label="Phone"
+        label={dictionary.account.profile.phone}
         currentInfo={`${customer.phone}`}
         isSuccess={successState}
         isError={!!state.error}
         errorMessage={state.error}
         clearState={clearState}
         data-testid="account-phone-editor"
+        dictionary={dictionary}
       >
         <div className="grid grid-cols-1 gap-y-2">
           <Input
-            label="Phone"
+            label={dictionary.account.profile.phone}
             name="phone"
             type="phone"
             autoComplete="phone"
@@ -72,4 +76,4 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   )
 }
 
-export default ProfileEmail
+export default ProfilePhone

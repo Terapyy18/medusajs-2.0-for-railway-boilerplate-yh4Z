@@ -1,32 +1,72 @@
+"use client"
+
 import { Github } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Image from "next/image"
 
-const Hero = () => {
+import { Dictionary } from "@lib/dictionary"
+
+const Hero = ({ dictionary }: { dictionary: Dictionary }) => {
   return (
-    <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <span>
+    <div className="h-screen w-full relative overflow-hidden">
+      {/* Background Video */}
+      {/* Background Images - Theme Aware */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Dark Theme Image (bg1.jpg) - Shown only in dark mode */}
+        <div className="hidden dark:block w-full h-full relative">
+          <Image
+            src="/bg1.jpg"
+            alt="Hero Background Dark"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            quality={90}
+          />
+        </div>
+
+        {/* Light Theme Image (BG2.jpg) - Shown only in light mode */}
+        <div className="block dark:hidden w-full h-full relative">
+          <Image
+            src="/BG2.jpg"
+            alt="Hero Background Light"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            quality={90}
+          />
+        </div>
+      </div>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+
+      {/* Content Layer */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-6 gap-8">
+        <div className="space-y-4">
           <Heading
             level="h1"
-            className="text-3xl leading-10 text-ui-fg-base font-normal"
+            className="text-5xl md:text-6xl lg:text-7xl leading-tight text-white font-serif font-medium tracking-tight"
           >
-            Well done! You have successfully deployed your Medusa 2.0 store on Railway!
+            {dictionary.hero.title}
           </Heading>
+
           <Heading
             level="h2"
-            className="text-3xl leading-10 text-ui-fg-subtle font-normal"
+            className="text-sm md:text-base text-gray-300 font-sans tracking-[0.2em] uppercase"
           >
-            Need help customizing your store?
+            {dictionary.hero.subtitle}
           </Heading>
-        </span>
-        <a
-          href="https://funkyton.com/medusajs-2-0-is-finally-here/"
-          target="_blank"
+        </div>
+
+        <LocalizedClientLink
+          href="/store"
+          className="group inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white transition-all duration-500 border border-white hover:bg-white hover:text-black"
         >
-          <h1 style={{ textDecoration: "underline" }}>
-            Visit the tutorial
-          </h1>
-        </a>
+          {dictionary.hero.cta}
+        </LocalizedClientLink>
       </div>
     </div>
   )

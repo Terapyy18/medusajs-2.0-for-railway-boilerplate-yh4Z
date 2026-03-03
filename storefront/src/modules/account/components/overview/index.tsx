@@ -1,3 +1,4 @@
+import { Dictionary } from "@lib/dictionary"
 import { Container } from "@medusajs/ui"
 
 import ChevronDown from "@modules/common/icons/chevron-down"
@@ -8,18 +9,19 @@ import { HttpTypes } from "@medusajs/types"
 type OverviewProps = {
   customer: HttpTypes.StoreCustomer | null
   orders: HttpTypes.StoreOrder[] | null
+  dictionary: Dictionary
 }
 
-const Overview = ({ customer, orders }: OverviewProps) => {
+const Overview = ({ customer, orders, dictionary }: OverviewProps) => {
   return (
     <div data-testid="overview-page-wrapper">
       <div className="hidden small:block">
         <div className="text-xl-semi flex justify-between items-center mb-4">
           <span data-testid="welcome-message" data-value={customer?.first_name}>
-            Hello {customer?.first_name}
+            {dictionary.account.overview.hello} {customer?.first_name}
           </span>
           <span className="text-small-regular text-ui-fg-base">
-            Signed in as:{" "}
+            {dictionary.account.overview.signed_in_as}{" "}
             <span
               className="font-semibold"
               data-testid="customer-email"
@@ -29,11 +31,11 @@ const Overview = ({ customer, orders }: OverviewProps) => {
             </span>
           </span>
         </div>
-        <div className="flex flex-col py-8 border-t border-gray-200">
+        <div className="flex flex-col py-8 border-t border-gray-200 dark:border-gray-700">
           <div className="flex flex-col gap-y-4 h-full col-span-1 row-span-2 flex-1">
             <div className="flex items-start gap-x-16 mb-6">
               <div className="flex flex-col gap-y-4">
-                <h3 className="text-large-semi">Profile</h3>
+                <h3 className="text-large-semi">{dictionary.account.overview.profile}</h3>
                 <div className="flex items-end gap-x-2">
                   <span
                     className="text-3xl-semi leading-none"
@@ -43,13 +45,13 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                     {getProfileCompletion(customer)}%
                   </span>
                   <span className="uppercase text-base-regular text-ui-fg-subtle">
-                    Completed
+                    {dictionary.account.overview.completed}
                   </span>
                 </div>
               </div>
 
               <div className="flex flex-col gap-y-4">
-                <h3 className="text-large-semi">Addresses</h3>
+                <h3 className="text-large-semi">{dictionary.account.overview.addresses}</h3>
                 <div className="flex items-end gap-x-2">
                   <span
                     className="text-3xl-semi leading-none"
@@ -59,7 +61,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                     {customer?.addresses?.length || 0}
                   </span>
                   <span className="uppercase text-base-regular text-ui-fg-subtle">
-                    Saved
+                    {dictionary.account.overview.saved}
                   </span>
                 </div>
               </div>
@@ -67,7 +69,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
 
             <div className="flex flex-col gap-y-4">
               <div className="flex items-center gap-x-2">
-                <h3 className="text-large-semi">Recent orders</h3>
+                <h3 className="text-large-semi">{dictionary.account.overview.recent_orders}</h3>
               </div>
               <ul
                 className="flex flex-col gap-y-4"
@@ -84,14 +86,14 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                         <LocalizedClientLink
                           href={`/account/orders/details/${order.id}`}
                         >
-                          <Container className="bg-gray-50 flex justify-between items-center p-4">
-                            <div className="grid grid-cols-3 grid-rows-2 text-small-regular gap-x-4 flex-1">
-                              <span className="font-semibold">Date placed</span>
+                          <Container className="bg-gray-50 dark:bg-neutral-900 flex justify-between items-center p-4">
+                            <div className="grid grid-cols-3 grid-rows-2 text-small-regular gap-x-4 flex-1 text-gray-900 dark:text-white">
+                              <span className="font-semibold">{dictionary.account.overview.date_placed}</span>
                               <span className="font-semibold">
-                                Order number
+                                {dictionary.account.overview.order_number}
                               </span>
                               <span className="font-semibold">
-                                Total amount
+                                {dictionary.account.overview.total_amount}
                               </span>
                               <span data-testid="order-created-date">
                                 {new Date(order.created_at).toDateString()}
@@ -124,7 +126,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                     )
                   })
                 ) : (
-                  <span data-testid="no-orders-message">No recent orders</span>
+                  <span data-testid="no-orders-message">{dictionary.account.overview.no_orders}</span>
                 )}
               </ul>
             </div>

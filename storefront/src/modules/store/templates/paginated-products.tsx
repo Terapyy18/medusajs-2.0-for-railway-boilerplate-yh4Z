@@ -4,6 +4,7 @@ import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
+
 const PRODUCT_LIMIT = 12
 
 type PaginatedProductsParams = {
@@ -12,7 +13,11 @@ type PaginatedProductsParams = {
   category_id?: string[]
   id?: string[]
   order?: string
+  // Extend for custom filters
+  q?: string
 }
+
+import { HttpTypes } from "@medusajs/types"
 
 export default async function PaginatedProducts({
   sortBy,
@@ -21,6 +26,10 @@ export default async function PaginatedProducts({
   categoryId,
   productsIds,
   countryCode,
+  theme,
+  type,
+  collections,
+  categories
 }: {
   sortBy?: SortOptions
   page: number
@@ -28,6 +37,10 @@ export default async function PaginatedProducts({
   categoryId?: string
   productsIds?: string[]
   countryCode: string
+  theme?: string
+  type?: string
+  collections?: HttpTypes.StoreCollection[]
+  categories?: HttpTypes.StoreProductCategory[]
 }) {
   const queryParams: PaginatedProductsParams = {
     limit: 12,
@@ -37,8 +50,22 @@ export default async function PaginatedProducts({
     queryParams["collection_id"] = [collectionId]
   }
 
+  if (theme && collections) {
+    const collection = collections.find((c) => c.handle === theme)
+    if (collection) {
+      queryParams["collection_id"] = [collection.id]
+    }
+  }
+
   if (categoryId) {
     queryParams["category_id"] = [categoryId]
+  }
+
+  if (type && categories) {
+    const category = categories.find((c) => c.handle === type)
+    if (category) {
+      queryParams["category_id"] = [category.id]
+    }
   }
 
   if (productsIds) {
@@ -66,20 +93,31 @@ export default async function PaginatedProducts({
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
+  // Narrative Grid Logic
+  // Chunk products into groups of 6
+  const chunkSize = 6
+  const productChunks = []
+  for (let i = 0; i < products.length; i += chunkSize) {
+    productChunks.push(products.slice(i, i + chunkSize))
+  }
+
   return (
     <>
-      <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
-        data-testid="products-list"
-      >
-        {products.map((p) => {
-          return (
-            <li key={p.id}>
-              <ProductPreview product={p} region={region} />
-            </li>
-          )
-        })}
-      </ul>
+      <div className="flex flex-col w-full gap-8" data-testid="products-list">
+        {productChunks.map((chunk, index) => (
+          <div key={`chunk-${index}`} className="flex flex-col gap-12">
+            <ul className="grid grid-cols-2 w-full small:grid-cols-3 gap-x-6 gap-y-8">
+              {chunk.map((p) => (
+                <li key={p.id}>
+                  <ProductPreview product={p} region={region} />
+                </li>
+              ))}
+            </ul>
+
+          </div>
+        ))}
+      </div>
+
       {totalPages > 1 && (
         <Pagination
           data-testid="product-pagination"

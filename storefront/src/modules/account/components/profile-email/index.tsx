@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useEffect } from "react"
-import { useFormState } from "react-dom"
+import React, { useActionState, useEffect } from "react"
+// import { useFormState } from "react-dom"
 
 import Input from "@modules/common/components/input"
 
@@ -9,11 +9,14 @@ import AccountInfo from "../account-info"
 import { HttpTypes } from "@medusajs/types"
 // import { updateCustomer } from "@lib/data/customer"
 
+import { Dictionary } from "@lib/dictionary"
+
 type MyInformationProps = {
   customer: HttpTypes.StoreCustomer
+  dictionary: Dictionary
 }
 
-const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
+const ProfileEmail: React.FC<MyInformationProps> = ({ customer, dictionary }) => {
   const [successState, setSuccessState] = React.useState(false)
 
   // TODO: It seems we don't support updating emails now?
@@ -33,7 +36,7 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
     }
   }
 
-  const [state, formAction] = useFormState(updateCustomerEmail, {
+  const [state, formAction] = useActionState(updateCustomerEmail, {
     error: false,
     success: false,
   })
@@ -49,17 +52,18 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   return (
     <form action={formAction} className="w-full">
       <AccountInfo
-        label="Email"
+        label={dictionary.account.profile.email}
         currentInfo={`${customer.email}`}
         isSuccess={successState}
         isError={!!state.error}
         errorMessage={state.error}
         clearState={clearState}
         data-testid="account-email-editor"
+        dictionary={dictionary}
       >
         <div className="grid grid-cols-1 gap-y-2">
           <Input
-            label="Email"
+            label={dictionary.account.profile.email}
             name="email"
             type="email"
             autoComplete="email"

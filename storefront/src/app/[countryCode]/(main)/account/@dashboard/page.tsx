@@ -10,13 +10,21 @@ export const metadata: Metadata = {
   description: "Overview of your account activity.",
 }
 
-export default async function OverviewTemplate() {
+import { getDictionary } from "@lib/dictionary"
+
+export default async function OverviewTemplate({
+  params,
+}: {
+  params: { countryCode: string }
+}) {
+  const { countryCode } = params
   const customer = await getCustomer().catch(() => null)
   const orders = (await listOrders().catch(() => null)) || null
+  const dictionary = getDictionary(countryCode)
 
   if (!customer) {
     notFound()
   }
 
-  return <Overview customer={customer} orders={orders} />
+  return <Overview customer={customer} orders={orders} dictionary={dictionary} />
 }

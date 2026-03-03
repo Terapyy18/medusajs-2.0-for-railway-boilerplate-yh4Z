@@ -45,6 +45,8 @@ export class ResendNotificationService extends AbstractNotificationProviderServi
   async send(
     notification: NotificationTypes.ProviderSendNotificationDTO
   ): Promise<NotificationTypes.ProviderSendNotificationResultsDTO> {
+    console.log('ResendService.send called with:', JSON.stringify(notification, null, 2))
+
     if (!notification) {
       throw new MedusaError(MedusaError.Types.INVALID_DATA, `No notification information provided`)
     }
@@ -83,12 +85,12 @@ export class ResendNotificationService extends AbstractNotificationProviderServi
       text: emailOptions.text,
       attachments: Array.isArray(notification.attachments)
         ? notification.attachments.map((attachment) => ({
-            content: attachment.content,
-            filename: attachment.filename,
-            content_type: attachment.content_type,
-            disposition: attachment.disposition ?? 'attachment',
-            id: attachment.id ?? undefined
-          }))
+          content: attachment.content,
+          filename: attachment.filename,
+          content_type: attachment.content_type,
+          disposition: attachment.disposition ?? 'attachment',
+          id: attachment.id ?? undefined
+        }))
         : undefined,
       scheduledAt: emailOptions.scheduledAt
     }

@@ -7,22 +7,23 @@ import { HttpTypes } from "@medusajs/types"
 
 type PaymentDetailsProps = {
   order: HttpTypes.StoreOrder
+  orderConfirmedDictionary: any
 }
 
-const PaymentDetails = ({ order }: PaymentDetailsProps) => {
+const PaymentDetails = ({ order, orderConfirmedDictionary }: PaymentDetailsProps) => {
   const payment = order.payment_collections?.[0].payments?.[0]
 
   return (
     <div>
       <Heading level="h2" className="flex flex-row text-3xl-regular my-6">
-        Payment
+        {orderConfirmedDictionary.payment.title}
       </Heading>
       <div>
         {payment && (
           <div className="flex items-start gap-x-1 w-full">
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                {orderConfirmedDictionary.payment.method_title}
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
@@ -33,7 +34,7 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
             </div>
             <div className="flex flex-col w-2/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment details
+                {orderConfirmedDictionary.payment.details_title}
               </Text>
               <div className="flex gap-2 txt-medium text-ui-fg-subtle items-center">
                 <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
@@ -43,11 +44,11 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
                   {isStripe(payment.provider_id) && payment.data?.card_last4
                     ? `**** **** **** ${payment.data.card_last4}`
                     : `${convertToLocale({
-                        amount: payment.amount,
-                        currency_code: order.currency_code,
-                      })} paid at ${new Date(
-                        payment.created_at ?? ""
-                      ).toLocaleString()}`}
+                      amount: payment.amount,
+                      currency_code: order.currency_code,
+                    })} ${orderConfirmedDictionary.payment.paid_at} ${new Date(
+                      payment.created_at ?? ""
+                    ).toLocaleString()}`}
                 </Text>
               </div>
             </div>

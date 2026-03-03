@@ -16,11 +16,13 @@ import { HttpTypes } from "@medusajs/types"
 type ShippingProps = {
   cart: HttpTypes.StoreCart
   availableShippingMethods: HttpTypes.StoreCartShippingOption[] | null
+  checkoutDictionary: any
 }
 
 const Shipping: React.FC<ShippingProps> = ({
   cart,
   availableShippingMethods,
+  checkoutDictionary
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -60,7 +62,7 @@ const Shipping: React.FC<ShippingProps> = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
+    <div className="bg-ui-bg-base dark:bg-neutral-900">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -72,7 +74,7 @@ const Shipping: React.FC<ShippingProps> = ({
             }
           )}
         >
-          Delivery
+          {checkoutDictionary.steps.delivery.title}
           {!isOpen && (cart.shipping_methods?.length ?? 0) > 0 && (
             <CheckCircleSolid />
           )}
@@ -87,7 +89,7 @@ const Shipping: React.FC<ShippingProps> = ({
                 className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
                 data-testid="edit-delivery-button"
               >
-                Edit
+                {checkoutDictionary.steps.delivery.action}
               </button>
             </Text>
           )}
@@ -95,7 +97,7 @@ const Shipping: React.FC<ShippingProps> = ({
       {isOpen ? (
         <div data-testid="delivery-options-container">
           <div className="pb-8">
-            <RadioGroup value={selectedShippingMethod?.id} onChange={set}>
+            <RadioGroup value={selectedShippingMethod?.id || ""} onChange={set}>
               {availableShippingMethods?.map((option) => {
                 return (
                   <RadioGroup.Option
@@ -141,7 +143,7 @@ const Shipping: React.FC<ShippingProps> = ({
             disabled={!cart.shipping_methods?.[0]}
             data-testid="submit-delivery-option-button"
           >
-            Continue to payment
+            {checkoutDictionary.actions.continue_to_payment}
           </Button>
         </div>
       ) : (

@@ -11,13 +11,13 @@ import { HttpTypes } from "@medusajs/types"
 
 const SideMenuItems = {
   Home: "/",
-  Store: "/store",
+  Craftsmanship: "/craftsmanship",
   Search: "/search",
   Account: "/account",
   Cart: "/cart",
 }
 
-const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
+const SideMenu = ({ regions, posts }: { regions: HttpTypes.StoreRegion[] | null, posts?: any[] }) => {
   const toggleState = useToggleState()
 
   return (
@@ -70,6 +70,22 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                           </li>
                         )
                       })}
+                      {posts && posts.length > 0 && (
+                        <div className="flex flex-col gap-4 mt-4">
+                          <Text className="text-ui-fg-subtle txt-compact-medium-plus">Blog</Text>
+                          {posts.map((post: any) => (
+                            <li key={post.id} className="ml-2">
+                              <LocalizedClientLink
+                                href={`/blog/${post.slug}`}
+                                className="text-xl leading-8 hover:text-ui-fg-disabled"
+                                onClick={close}
+                              >
+                                {post.title}
+                              </LocalizedClientLink>
+                            </li>
+                          ))}
+                        </div>
+                      )}
                     </ul>
                     <div className="flex flex-col gap-y-6">
                       <div
