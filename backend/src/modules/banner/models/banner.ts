@@ -1,4 +1,4 @@
-import { model } from "@medusajs/utils"
+import { model } from "@medusajs/framework/utils"
 
 export const Banner = model.define("banner", {
     id: model.id().primaryKey(),
