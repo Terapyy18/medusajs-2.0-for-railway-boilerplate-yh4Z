@@ -1,11 +1,12 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
+import BannerModuleService from "../../../../modules/banner/service"
 
 // GET a single banner
 export const GET = async (
     req: MedusaRequest,
     res: MedusaResponse
 ) => {
-    const bannerModuleService = req.scope.resolve("banner")
+    const bannerModuleService = req.scope.resolve<BannerModuleService>("banner")
     const { id } = req.params
 
     const banner = await bannerModuleService.retrieveBanner(id)
@@ -31,7 +32,7 @@ export const POST = async (
     }>,
     res: MedusaResponse
 ) => {
-    const bannerModuleService = req.scope.resolve("banner")
+    const bannerModuleService = req.scope.resolve<BannerModuleService>("banner")
     const { id } = req.params
 
     const banner = await bannerModuleService.updateBanners({
@@ -47,7 +48,7 @@ export const DELETE = async (
     req: MedusaRequest,
     res: MedusaResponse
 ) => {
-    const bannerModuleService = req.scope.resolve("banner")
+    const bannerModuleService = req.scope.resolve<BannerModuleService>("banner")
     const { id } = req.params
 
     await bannerModuleService.deleteBanners(id)

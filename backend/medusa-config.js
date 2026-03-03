@@ -44,7 +44,13 @@ const medusaConfig = {
     },
     build: {
       rollupOptions: {
-        external: ["@medusajs/dashboard", "@medusajs/admin-shared", "@medusajs/icons"]
+        external: [
+          "@medusajs/dashboard",
+          "@medusajs/admin-shared",
+          "@medusajs/icons",
+          "@medusajs/ui",
+          "@medusajs/admin-sdk",
+        ]
       }
     }
   },

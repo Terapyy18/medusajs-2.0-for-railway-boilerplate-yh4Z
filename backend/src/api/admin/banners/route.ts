@@ -1,11 +1,12 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
+import BannerModuleService from "../../../modules/banner/service"
 
 // GET all banners (admin)
 export const GET = async (
     req: MedusaRequest,
     res: MedusaResponse
 ) => {
-    const bannerModuleService = req.scope.resolve("banner")
+    const bannerModuleService = req.scope.resolve<BannerModuleService>("banner")
 
     const banners = await bannerModuleService.listBanners({}, {
         order: { position: "ASC" }
@@ -32,7 +33,7 @@ export const POST = async (
     }>,
     res: MedusaResponse
 ) => {
-    const bannerModuleService = req.scope.resolve("banner")
+    const bannerModuleService = req.scope.resolve<BannerModuleService>("banner")
 
     const banner = await bannerModuleService.createBanners(req.body)
 
