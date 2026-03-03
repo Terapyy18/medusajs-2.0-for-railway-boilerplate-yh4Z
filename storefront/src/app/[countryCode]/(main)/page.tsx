@@ -25,11 +25,6 @@ export default async function Home({
   const region = await getRegion(countryCode)
   const dictionary = getDictionary(countryCode)
 
-  // Allow rendering even if collections/region are missing to avoid empty page
-  // if (!collections || !region) {
-  //   return null
-  // }
-
   return (
     <>
       <Hero dictionary={dictionary} />
