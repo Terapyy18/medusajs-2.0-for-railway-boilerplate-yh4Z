@@ -1,108 +1,174 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-      <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg" width=100>
-    </picture>
-  </a>
-  <a href="https://railway.app/template/gkU-27?referralCode=-Yg50p">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://railway.app/brand/logo-light.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://railway.app/brand/logo-dark.svg">
-      <img alt="Railway logo" src="https://railway.app/brand/logo-light.svg" width=100>
-    </picture>
-  </a>
-</p>
+# 🖨️ TeraPrintStudio — Storefront
 
-<h2 align="center">
-  Prebaked medusajs 2.0 monorepo
-</h2>
-<h4 align="center">
-  Backend + Storefront + postgres + redis + MinIO + MeiliSearch
-</h4>
-<p align="center">
-Combine Medusa's modules for your commerce backend with the newest Next.js 14 features for a performant storefront.</p>
+> Boutique e-commerce spécialisée dans l'impression professionnelle et personnalisée.  
+> Construite sur **Next.js 15** + **MedusaJS 2.0**, déployée sur **Railway**.
 
-<h2 align="center">
-  Need help?<br>
-  <a href="https://funkyton.com/medusajs-2-0-is-finally-here/">Step by step deploy guide, and video instructions</a>
-</h2>
+---
 
-<h3 align="center">
-  NEW! Looking for medusa B2B? <br>
-  <a href="https://github.com/rpuls/medusa-b2b-for-railway/">Checkout the new B2B quickstart for Railway repository</a>
-</h3>
+## 🚀 Stack Technique
 
+| Catégorie | Technologie |
+|---|---|
+| **Framework** | [Next.js 15](https://nextjs.org/) (App Router) |
+| **Backend / Commerce** | [MedusaJS 2.0](https://medusajs.com/) |
+| **Langage** | [TypeScript](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS v3](https://tailwindcss.com/) + [Medusa UI](https://docs.medusajs.com/ui) |
+| **Paiements** | [Stripe](https://stripe.com/) · [PayPal](https://www.paypal.com/) |
+| **Recherche** | [MeiliSearch](https://www.meilisearch.com/) |
+| **Stockage fichiers** | [MinIO](https://min.io/) (fallback: local) |
+| **Déploiement** | [Railway](https://railway.app/) |
+| **Carousel** | [Embla Carousel](https://www.embla-carousel.com/) |
+| **Icons** | [Lucide React](https://lucide.dev/) |
 
+---
 
-## About this boilerplate
-This boilerplate is a monorepo consisting of the officially released MedusaJS 2.0 backend and storefront application. It is a pre-configured, ready-to-deploy solution, modified for seamless deployment on [railway.app](https://railway.app?referralCode=-Yg50p).
+## ✨ Fonctionnalités
 
-Updated: to `version 2.12.1` 🥳
+### 🛒 E-commerce
 
-## Deploy with no manual setup in minutes
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/gkU-27?referralCode=-Yg50p)
+- Page produit avec galerie et options
+- Catalogue avec filtres par collection et catégorie
+- Panier persistant
+- Checkout complet (adresse, livraison, paiement)
+- Paiement par **carte bancaire** (Stripe) et **PayPal**
+- Espace client (compte, historique commandes, adresses)
+- Détail de commande confirmée
 
+### ⚡ Next.js 15 + App Router
 
-## Preconfigured 3rd party integrations
+- **Server Components** — rendu côté serveur par défaut
+- **Server Actions** — mutations sans API route
+- **Streaming** — chargement progressif des pages
+- **Static Pre-Rendering** — pages produits générées à la build
+- **Next fetching/caching** — mise en cache automatique des données
 
-- MinIO file storage: Replaces local file storage with MinIO cloud storage, automatically creating a 'medusa-media' bucket for your media files. [README](backend/src/modules/minio-file/README.md)
-- Resend email integration [Watch setup video](https://youtu.be/pbdZm26YDpE?si=LQTHWeZMLD4w3Ahw) - special thanks to [aleciavogel](https://github.com/aleciavogel) for Resend notification service, and react-email implementation! [README](backend/src/modules/email-notifications/README.md)
-- Stripe payment service: [Watch setup video](https://youtu.be/dcSOpIzc1Og)
-- Meilisearch integration by [Rokmohar](https://github.com/rokmohar/medusa-plugin-meilisearch): Adds powerful product search capabilities to your store. When deployed on Railway using the template, MeiliSearch is automatically configured. (For non-railway'ers: [Watch setup video](https://youtu.be/hrXcc5MjApI))
+### 🔍 Recherche
 
-# local setup
+- Intégration native **MeiliSearch** via `@meilisearch/instant-meilisearch`
+- Compatible **Algolia** (changement de client de recherche possible)
+- Index `products` synchronisé depuis le backend Medusa
 
-## Backend
-Video instructions: https://youtu.be/PPxenu7IjGM
+### 🌍 Internationalisation
 
-- `cd backend/`
-- `pnpm install` or `npm i`
-- Rename `.env.template` ->  `.env`
-- To connect to your online database from your local machine, copy the `DATABASE_URL` value auto-generated on Railway and add it to your `.env` file.
-  - If connecting to a new database, for example a local one, run `pnpm ib` or `npm run ib` to seed the database.
-- `pnpm dev` or `npm run dev`
+- Routing dynamique par `[countryCode]`
+- Prix et langue adaptés par région (configuré dans Medusa Admin)
+- Détection automatique du pays via IP (Vercel) ou variable `NEXT_PUBLIC_DEFAULT_REGION`
 
-### requirements
-- **postgres database** (Automatic setup when using the Railway template)
-- **redis** (Automatic setup when using the Railway template) - fallback to simulated redis.
-- **MinIO storage** (Automatic setup when using the Railway template) - fallback to local storage.
-- **Meilisearch** (Automatic setup when using the Railway template)
+---
 
-### commands
+## 🗂️ Structure du projet
 
-`cd backend/`
-`npm run ib` or `pnpm ib` will initialize the backend by running migrations and seed the database with required system data.
-`npm run dev` or `pnpm dev` will start the backend (and admin dashboard frontend on `localhost:9000/app`) in development mode.
-`pnpm build && pnpm start` will compile the project and run from compiled source. This can be useful for reproducing issues on your cloud instance.
+```
+storefront/
+└── src/
+    ├── app/                    # Pages & layouts (App Router)
+    │   └── [countryCode]/
+    │       ├── (checkout)/     # Tunnel de commande (layout séparé)
+    │       └── (main)/         # Reste du site
+    │           ├── account/    # Espace client
+    │           ├── cart/       # Panier
+    │           ├── collections/
+    │           ├── products/
+    │           ├── search/
+    │           └── store/
+    ├── lib/                    # SDK Medusa, utils, config, constantes
+    │   └── data/index.ts       # Toutes les fonctions d'appel API Medusa
+    ├── modules/                # Composants UI organisés par section
+    ├── styles/                 # global.css (Tailwind)
+    ├── types/                  # Types TypeScript globaux
+    └── middleware.ts           # Redirection countryCode (Edge Function)
+```
 
-## Storefront
-Video instructions: https://youtu.be/PPxenu7IjGM
+---
 
-- `cd storefront/
-- Install dependencies `npm i` or `pnpm i`
-- Rename `.env.local.template` ->  `.env.local`
+## ⚙️ Installation locale
 
-### requirements
-- A running backend on port 9000 is required to fetch product data and other information needed to build Next.js pages.
+### Prérequis
 
-### commands
-`cd storefront/`
-`npm run dev` or `pnpm dev` will run the storefront on uncompiled code, with hot-reloading as files are saved with changes.
+- Node.js 18+
+- Un backend **MedusaJS** tournant sur `http://localhost:9000`
 
-## Useful resources
-- How to setup credit card payment with Stripe payment module: https://youtu.be/dcSOpIzc1Og
-- https://funkyton.com/medusajs-2-0-is-finally-here/#succuessfully-deployed-whats-next
-  
-<p align="center">
-  <a href="https://funkyton.com/">
-    <div style="text-align: center;">
-      A template by,
-      <br>
-      <picture>
-        <img alt="FUNKYTON logo" src="https://res-5.cloudinary.com/hczpmiapo/image/upload/q_auto/v1/ghost-blog-images/funkyton-logo.png" width=200>
-      </picture>
-    </div>
-  </a>
-</p>
+### 1. Variables d'environnement
+
+```bash
+cp .env.local.template .env.local
+```
+
+Édite `.env.local` :
+
+```env
+NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+NEXT_PUBLIC_BASE_URL=http://localhost:8000
+NEXT_PUBLIC_DEFAULT_REGION=fr
+NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=<ta_clé_publiable_medusa>
+
+# Paiements
+NEXT_PUBLIC_STRIPE_KEY=<ta_clé_publique_stripe>
+NEXT_PUBLIC_PAYPAL_CLIENT_ID=<ton_client_id_paypal>
+
+# Recherche (optionnel)
+NEXT_PUBLIC_SEARCH_ENDPOINT=http://localhost:7700
+NEXT_PUBLIC_SEARCH_API_KEY=<ta_clé_meilisearch>
+NEXT_PUBLIC_INDEX_NAME=products
+```
+
+### 2. Installer les dépendances
+
+```bash
+npm install
+# ou
+pnpm install
+```
+
+### 3. Démarrer en développement
+
+```bash
+npm run dev
+```
+
+Le storefront est accessible sur **http://localhost:8000**
+
+---
+
+## 🌐 Déploiement (Railway)
+
+Les variables d'environnement à configurer sur Railway :
+
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_MEDUSA_BACKEND_URL` | URL du backend Railway |
+| `NEXT_PUBLIC_BASE_URL` | URL du storefront Railway |
+| `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY` | Clé publiable Medusa (Admin → API Keys) |
+| `NEXT_PUBLIC_STRIPE_KEY` | Clé publique Stripe (`pk_live_...`) |
+| `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | Client ID PayPal Live |
+| `NEXT_PUBLIC_DEFAULT_REGION` | Région par défaut (ex: `fr`) |
+
+---
+
+## 💳 Intégrations Paiement
+
+### Stripe
+Cartes bancaires classiques via les Card Fields sécurisés Stripe.
+
+### PayPal
+Paiement via compte PayPal ou carte bancaire via PayPal Card Fields (`@paypal/react-paypal-js`).
+
+---
+
+## 🔍 Recherche MeiliSearch
+
+La recherche est intégrée via `@meilisearch/instant-meilisearch` et configurée via les variables :
+
+```env
+NEXT_PUBLIC_SEARCH_ENDPOINT=https://ton-meilisearch.railway.app
+NEXT_PUBLIC_SEARCH_API_KEY=<search_key>
+NEXT_PUBLIC_INDEX_NAME=products
+```
+
+> Pour basculer sur **Algolia**, remplace le `searchClient` dans `@lib/search-client` par `algoliasearch`.
+
+---
+
+## 📄 Licence
+
+MIT © 2026 Theo D.
