@@ -291,12 +291,22 @@ export const dictionary = {
             explore_collection: "Explore the {title} collection",
             view_all: "View All Collections",
             discover_range: "Discover our full range of 3D printed art."
+        },
+        store: {
+            sort_by: "Sort by",
+            new_in: "New in",
+            price_asc: "Price: Low to High",
+            price_desc: "Price: High to Low",
+            themes: "Themes",
+            categories: "Categories",
+            all: "All",
+            our_creations: "Our Creations"
         }
     },
     fr: {
         hero: {
             title: "Le jeu d'échecs réinventé",
-            subtitle: "Pièces d'échecs artisanales d'exception",
+            subtitle: "Pièces d'échecs artisanales",
             cta: "Découvrir la Collection",
         },
         newsletter: {
@@ -372,17 +382,17 @@ export const dictionary = {
         },
         craftsmanship: {
             block1: {
-                title: "Géométrie Complexe & Précision",
-                text: "Nos pièces sont imprimées à une résolution de 19 microns pour capturer des détails organiques (crinière, expression) impossibles en tournage traditionnel. Chaque pièce est ensuite post-traitée et peinte à la main, fusionnant la perfection numérique avec la touche unique de l'artisan."
+                title: "Impression 3D Résine & Détails",
+                text: "Chaque pièce est imprimée en 3D avec une résine haute définition pour capturer le moindre détail. Nous apportons ensuite beaucoup de soin au post-traitement manuel pour garantir un rendu final parfait et sans défaut."
             },
             block2: {
-                title: "Densité Structurelle & Inertie",
-                text: "Chaque pièce est fabriquée pleine pour une masse monolithique naturelle. Cette densité pure offre une stabilité inébranlable et une sensation de lourdeur premium en main. La base est scellée d'un feutre technique, assurant un glissement silencieux et une protection absolue de votre échiquier."
+                title: "Densité Pleine & Feutrine",
+                text: "Nos pièces sont imprimées avec une densité pleine, ce qui leur donne un poids idéal et une vraie sensation de qualité en main. Vous avez également la possibilité d'ajouter une feutrine optionnelle sous chaque base pour protéger votre échiquier."
             }
         },
         craftsmanship_page: {
-            title: "L'Excellence du Geste",
-            subtitle: "Plongez au cœur de notre atelier où chaque pièce est façonné avec passion, alliant tradition séculaire et précision moderne."
+            title: "L'Exigence du Détail",
+            subtitle: "La rencontre entre technologie de pointe et finition artisanale. Nos pièces sont imprimées en résine 3D haute définition pour une précision absolue, puis minutieusement post-traitées à la main. Le résultat : une densité pleine au poids idéal et une esthétique sans compromis, sublimée par une base en feutrine protectrice."
         },
         cart: {
             title: "Panier",
@@ -580,6 +590,16 @@ export const dictionary = {
             explore_collection: "Explorer la collection {title}",
             view_all: "Voir toutes les collections",
             discover_range: "Découvrez toute notre gamme d'art imprimé en 3D."
+        },
+        store: {
+            sort_by: "Trier par",
+            new_in: "Nouveautés",
+            price_asc: "Prix : Croissant",
+            price_desc: "Prix : Décroissant",
+            themes: "Thèmes",
+            categories: "Catégories",
+            all: "Tous",
+            our_creations: "Nos Créations"
         }
     },
 } as const
@@ -757,6 +777,16 @@ export interface Dictionary {
         explore_collection: string
         view_all: string
         discover_range: string
+    }
+    store: {
+        sort_by: string
+        new_in: string
+        price_asc: string
+        price_desc: string
+        themes: string
+        categories: string
+        all: string
+        our_creations: string
     }
     checkout: {
         back_to_cart: string

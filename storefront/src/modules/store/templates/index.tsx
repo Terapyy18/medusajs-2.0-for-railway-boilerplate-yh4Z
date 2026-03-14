@@ -6,6 +6,7 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import DiscoveryBanner from "@modules/store/components/discovery-banner"
 import NarrativeBanner from "@modules/store/components/narrative-banner"
+import { getDictionary } from "@lib/dictionary"
 
 import PaginatedProducts from "./paginated-products"
 
@@ -28,6 +29,7 @@ const StoreTemplate = ({
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
+  const dictionary = getDictionary(countryCode)
 
   return (
     <div
@@ -37,10 +39,10 @@ const StoreTemplate = ({
       <DiscoveryBanner />
 
       <div className="flex flex-col small:flex-row small:items-start py-6">
-        <RefinementList sortBy={sort} collections={collections} categories={categories} />
+        <RefinementList sortBy={sort} collections={collections} categories={categories} dictionary={dictionary.store} />
         <div className="w-full">
           <div className="mb-8 text-2xl-semi">
-            <h1 data-testid="store-page-title">Nos Créations</h1>
+            <h1 data-testid="store-page-title">{dictionary.store.our_creations}</h1>
           </div>
           <Suspense fallback={<SkeletonProductGrid />}>
             <PaginatedProducts

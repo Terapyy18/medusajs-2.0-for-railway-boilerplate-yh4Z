@@ -12,13 +12,15 @@ type RefinementListProps = {
   "data-testid"?: string
   collections?: HttpTypes.StoreCollection[]
   categories?: HttpTypes.StoreProductCategory[]
+  dictionary: Record<string, string>
 }
 
 const RefinementList = ({
   sortBy,
   "data-testid": dataTestId,
   collections = [],
-  categories = []
+  categories = [],
+  dictionary
 }: RefinementListProps) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -41,11 +43,11 @@ const RefinementList = ({
 
   return (
     <div className="flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6 small:min-w-[250px] small:ml-[1.675rem]">
-      <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
+      <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} dictionary={dictionary} />
 
       {/* Collections Filter (Themes) */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-base-semi">Thèmes</h3>
+        <h3 className="text-base-semi">{dictionary.themes}</h3>
         <div className="flex flex-col gap-2">
           {collections.map((collection) => (
             <label key={collection.id} className="flex items-center gap-2 cursor-pointer">
@@ -75,14 +77,14 @@ const RefinementList = ({
               }}
               className="accent-primary"
             />
-            <span className="text-ui-fg-subtle text-sm">Tous</span>
+            <span className="text-ui-fg-subtle text-sm">{dictionary.all}</span>
           </label>
         </div>
       </div>
 
       {/* Categories Filter (Type) */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-base-semi">Catégorie</h3>
+        <h3 className="text-base-semi">{dictionary.categories}</h3>
         <div className="flex flex-col gap-2">
           {categories.map((category) => (
             <label key={category.id} className="flex items-center gap-2 cursor-pointer">
@@ -112,7 +114,7 @@ const RefinementList = ({
               }}
               className="accent-primary"
             />
-            <span className="text-ui-fg-subtle text-sm">Tous</span>
+            <span className="text-ui-fg-subtle text-sm">{dictionary.all}</span>
           </label>
         </div>
       </div>

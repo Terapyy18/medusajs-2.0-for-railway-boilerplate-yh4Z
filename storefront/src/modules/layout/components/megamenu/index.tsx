@@ -62,7 +62,7 @@ export default function Megamenu({
                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors duration-150"
                                     onClick={() => setIsOpen(false)}
                                 >
-                                    <p className="text-sm font-serif dark:text-black hover:text-accent-gold dark:hover:text-accent-gold transition-colors dark:text-white">
+                                    <p className="text-sm font-serif dark:text-black hover:text-accent-gold dark:hover:text-accent-gold transition-colors">
                                         {collection.title}
                                     </p>
                                 </LocalizedClientLink>
