@@ -37,7 +37,7 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
             >
               <div className="relative w-64 h-24">
                 <Image
-                  src="/logo.png"
+                  src="/logo.jpg"
                   alt="TeraPrint Studio logo"
                   fill
                   className="object-contain"
@@ -51,7 +51,7 @@ export default async function Nav({ countryCode }: { countryCode: string }) {
           <div className="hidden small:flex items-center h-full justify-center gap-x-8">
             <Megamenu collections={collections} dictionary={dictionary.megamenu} />
             <LocalizedClientLink href="/store" className="hover:text-accent-gold uppercase transition-colors">
-              {dictionary.nav.catalogue}
+              {/* {dictionary.nav.catalogue} */}
             </LocalizedClientLink>
 
             <LocalizedClientLink href="/craftsmanship" className="hover:text-accent-gold uppercase transition-colors">

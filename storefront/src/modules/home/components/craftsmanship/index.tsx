@@ -9,7 +9,6 @@ export default function Craftsmanship({ countryCode }: { countryCode: string }) 
     return (
         <section className="py-24 dark:bg-neutral-900 text-gray-900 dark:text-white transition-colors duration-200">
             <div className="content-container">
-                {/* Block 1: The Knight */}
                 <div className="flex flex-col md:flex-row items-center gap-12 mb-24">
                     <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden rounded-lg">
                         <Image
@@ -29,7 +28,6 @@ export default function Craftsmanship({ countryCode }: { countryCode: string }) 
             </div>
 
             <div className="content-container">
-                {/* Block 2: The Weight */}
                 <div className="flex flex-col md:flex-row-reverse items-center gap-12 mt-24">
                     <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden rounded-lg">
                         <Image
