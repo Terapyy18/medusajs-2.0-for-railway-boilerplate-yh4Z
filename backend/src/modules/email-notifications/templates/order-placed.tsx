@@ -39,6 +39,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
       itemCol: 'Item',
       qtyCol: 'Quantity',
       priceCol: 'Price',
+      invoice: 'You can download your PDF invoice directly from your account on our website.',
       footer: 'Thank you for shopping with TeraPrintStudio!',
       rights: 'All rights reserved.'
     },
@@ -55,6 +56,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
       itemCol: 'Article',
       qtyCol: 'Quantité',
       priceCol: 'Prix',
+      invoice: 'Vous pouvez télécharger votre facture au format PDF directement depuis votre espace client sur notre site.',
       footer: 'Merci d\'avoir commandé chez TeraPrintStudio !',
       rights: 'Tous droits réservés.'
     }
@@ -151,6 +153,10 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
             </div>
           ))}
         </div>
+
+        <Text style={{ margin: '30px 0 10px', fontStyle: 'italic', fontSize: '14px', color: '#666' }}>
+          {t.invoice}
+        </Text>
 
         <Section className="px-10 py-6 mt-8 border-t border-gray-100 text-center">
           <Text className="text-xs text-gray-400 mb-2">

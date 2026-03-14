@@ -27,7 +27,7 @@ const OrderCard = ({ order, dictionary }: OrderCardProps) => {
   }, [order])
 
   return (
-    <div className="bg-white flex flex-col" data-testid="order-card">
+    <div className="flex flex-col" data-testid="order-card">
       <div className="uppercase text-large-semi mb-1">
         #<span data-testid="order-display-id">{order.display_id}</span>
       </div>
@@ -52,7 +52,6 @@ const OrderCard = ({ order, dictionary }: OrderCardProps) => {
               className="flex flex-col gap-y-2"
               data-testid="order-item"
             >
-              <Thumbnail thumbnail={i.thumbnail} images={[]} size="full" />
               <div className="flex items-center text-small-regular text-ui-fg-base">
                 <span
                   className="text-ui-fg-base font-semibold"

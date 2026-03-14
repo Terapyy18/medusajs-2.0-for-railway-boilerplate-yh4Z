@@ -7,7 +7,7 @@ import { enrichLineItems } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 
 type Props = {
-  params: { id: string }
+  params: { id: string; countryCode: string }
 }
 
 async function getOrder(id: string) {
@@ -38,6 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+import { getDictionary } from "@lib/dictionary"
+
 export default async function OrderDetailPage({ params }: Props) {
   const order = await getOrder(params.id).catch(() => null)
 
@@ -45,5 +47,7 @@ export default async function OrderDetailPage({ params }: Props) {
     notFound()
   }
 
-  return <OrderDetailsTemplate order={order} />
+  const dictionary = getDictionary(params.countryCode)
+
+  return <OrderDetailsTemplate order={order} orderConfirmedDictionary={dictionary.order_confirmed} countryCode={params.countryCode} />
 }

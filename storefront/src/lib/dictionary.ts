@@ -261,6 +261,9 @@ export const dictionary = {
             title: "Thank you!",
             subtitle: "Your order was placed successfully.",
             summary_title: "Summary",
+            order_details_title: "Order details",
+            back_to_overview: "Back to overview",
+            download_invoice: "Download Invoice",
             details: {
                 sent_to: "We have sent the order confirmation details to",
                 date: "Order date:",
@@ -301,6 +304,21 @@ export const dictionary = {
             categories: "Categories",
             all: "All",
             our_creations: "Our Creations"
+        },
+        invoice: {
+            title: "INVOICE",
+            orderRef: "Order Ref:",
+            date: "Invoice Date:",
+            billTo: "Billed and Shipped to:",
+            tableHeaderDesc: "Description",
+            tableHeaderPrice: "Unit Price",
+            tableHeaderQty: "Qty",
+            tableHeaderTotal: "Total",
+            subtotal: "Subtotal",
+            shipping: "Shipping",
+            grandTotal: "GRAND TOTAL",
+            footerThankYou: "Thank you for your trust and your purchase!",
+            footerContact: "For any questions regarding this invoice, please contact us:"
         }
     },
     fr: {
@@ -560,6 +578,9 @@ export const dictionary = {
             title: "Merci !",
             subtitle: "Votre commande a été passée avec succès.",
             summary_title: "Résumé",
+            order_details_title: "Détails de la commande",
+            back_to_overview: "Retour aux commandes",
+            download_invoice: "Télécharger la facture",
             details: {
                 sent_to: "Nous avons envoyé les détails de confirmation de commande à",
                 date: "Date de commande :",
@@ -600,6 +621,21 @@ export const dictionary = {
             categories: "Catégories",
             all: "Tous",
             our_creations: "Nos Créations"
+        },
+        invoice: {
+            title: "FACTURE",
+            orderRef: "Réf. Commande :",
+            date: "Date de facturation :",
+            billTo: "Facturé et Livré à :",
+            tableHeaderDesc: "Description",
+            tableHeaderPrice: "Prix Unité",
+            tableHeaderQty: "Qté",
+            tableHeaderTotal: "Total",
+            subtotal: "Sous-total",
+            shipping: "Livraison",
+            grandTotal: "TOTAL TTC",
+            footerThankYou: "Merci pour votre confiance et votre achat !",
+            footerContact: "Pour toute question concernant cette facture, veuillez nous contacter :"
         }
     },
 } as const
@@ -821,6 +857,9 @@ export interface Dictionary {
         title: string
         subtitle: string
         summary_title: string
+        order_details_title: string
+        back_to_overview: string
+        download_invoice: string
         details: {
             sent_to: string
             date: string
@@ -845,6 +884,21 @@ export interface Dictionary {
             contact: string
             returns: string
         }
+    }
+    invoice: {
+        title: string
+        orderRef: string
+        date: string
+        billTo: string
+        tableHeaderDesc: string
+        tableHeaderPrice: string
+        tableHeaderQty: string
+        tableHeaderTotal: string
+        subtotal: string
+        shipping: string
+        grandTotal: string
+        footerThankYou: string
+        footerContact: string
     }
 }
 

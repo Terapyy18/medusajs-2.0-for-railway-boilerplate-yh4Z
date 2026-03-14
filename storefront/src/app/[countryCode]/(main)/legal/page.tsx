@@ -15,23 +15,19 @@ export default function LegalPage() {
                     <h3>Éditeur du site</h3>
                     <p>
                         <strong>TeraPrint Studio</strong><br />
-                        Société par actions simplifiée (SAS) au capital de 10 000 €<br />
-                        Siège social : 123 Avenue des Champs-Élysées, 75008 Paris, France<br />
-                        RCS Paris B 123 456 789<br />
-                        TVA Intracommunautaire : FR 12 123456789
+                        Micro-entreprise<br />
+                        Demeurant au 1 BIS rue du maréchal JOFFRE, 24400 Mussidan, Nouvelle-Aquitaine, France<br />
+                        Siret : 940 684 228
                     </p>
 
                     <h3>Directeur de la publication</h3>
                     <p>
-                        M. Théodore (Fondateur)
+                        Mr. Theo Dumontet
                     </p>
 
                     <h3>Hébergement</h3>
                     <p>
-                        Le site est hébergé par Vercel Inc.<br />
-                        340 S Lemon Ave #4133<br />
-                        Walnut, CA 91789<br />
-                        USA
+                        Le site est hébergé par Railway.
                     </p>
 
                     <h3>Propriété intellectuelle</h3>
