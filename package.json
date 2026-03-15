@@ -1,0 +1,12 @@
+{
+  "name": "teraprinstudio-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n \"backend,storefront\" -c \"bgBlue.bold,bgGreen.bold\" \"cd backend && npm run dev\" \"cd storefront && npm run dev\"",
+    "install:all": "npm install && cd backend && npm install && cd ../storefront && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
